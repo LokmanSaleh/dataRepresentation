@@ -75,9 +75,7 @@ public class App2 {
 				    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 					.addGap(38, 38, 38);
                 sqGr2.addComponent(table.getPanel(), javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE);
-
-				//System.out.println(table.getName() + " --> " + table.getColumns().size());
-			
+		
 			}
 	    
 
