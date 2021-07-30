@@ -16,13 +16,13 @@ public class Column {
 
 	public Column(String tablename, String name, Boolean foreignKey, String parentTable, String parentTableColumn) {
 		
-		this.tableName = tableName;
+		this.tableName = tablename;
 		this.name = name;
 		this.foreignKey = foreignKey;
 		this.parentTable = parentTable;
 		this.parentTableColumn = parentTableColumn;
 		
-		String labelValue = (foreignKey) ? (name + "(FK | T(" + parentTable + "), A(" + parentTableColumn + ")")
+		String labelValue = (foreignKey) ? (name + " (FK | T(" + parentTable + "), A(" + parentTableColumn + ")")
 										 : (name);
 
 		checkBox = new JCheckBox();
