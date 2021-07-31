@@ -102,6 +102,7 @@ public class GraphPanel extends Container
     static class MyRenderer extends JPanel implements Renderer.Vertex<Number, Number>
     {
         static final long serialVersionUID = 420000L;
+        
         @Override
         public void paintVertex(RenderContext<Number, Number> rc,
                                 Layout<Number, Number> layout, Number vertex)

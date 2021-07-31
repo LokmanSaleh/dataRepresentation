@@ -22,7 +22,7 @@ public class Column {
 		this.parentTable = parentTable;
 		this.parentTableColumn = parentTableColumn;
 		
-		String labelValue = (foreignKey) ? (name + " (FK | T(" + parentTable + "), A(" + parentTableColumn + ")")
+		String labelValue = (foreignKey) ? (name + " --> T(" + parentTable + "), A(" + parentTableColumn + ")")
 										 : (name);
 
 		checkBox = new JCheckBox();
