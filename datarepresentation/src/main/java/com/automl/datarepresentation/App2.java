@@ -1,5 +1,6 @@
 package com.automl.datarepresentation;
 
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,9 +8,15 @@ import java.sql.Statement;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.GroupLayout.SequentialGroup;
+
+import edu.uci.ics.jung.algorithms.layout.CircleLayout;
+import edu.uci.ics.jung.graph.DirectedSparseGraph;
+import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
+import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 
 /**
  * Hello world!
@@ -53,48 +60,28 @@ public class App2 {
 
 			}
 
-		    JFrame frame = new JFrame();
+				        
+ 		    JFrame frame = new JFrame();
 		    
-		    JPanel container = new JPanel();
-	        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(container);
-	        container.setLayout(layout);
-		    SequentialGroup sqGr1 = layout.createSequentialGroup();
+		    JPanel tablesContainer = new JPanel();
 		    
-		    SequentialGroup sqGr2 = layout.createSequentialGroup();
-		    sqGr2.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING));
-                
 		    // create panel for each table in the structure
 			for (Map.Entry<String, Table> entry : tables.entrySet()) {
 
 				Table table = entry.getValue();
 				
 				table.createPanelForTable();
-				sqGr1.addComponent(table.getPanel(), javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-				 	.addGap(38, 38, 38)
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-				    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-					.addGap(38, 38, 38);
-                sqGr2.addComponent(table.getPanel(), javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE);
-		
+				tablesContainer.add(table.getPanel());
 			}
-	    
+			
+			JPanel buttonJPanel = new JPanel();
+			
+			buttonJPanel.add(new JButton("create SQL request"));
+			
+			tablesContainer.add(buttonJPanel);
+		    frame.getContentPane().add(tablesContainer);
+		   // frame.getContentPane().add(buttonJPanel);
 
-	        layout.setHorizontalGroup(
-	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	            .addGroup(sqGr1));
-	        
-	        layout.setVerticalGroup(
-	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	            .addGroup(layout.createSequentialGroup()
-	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	                    .addGroup(sqGr2)
-	                 )
-	                .addContainerGap(339, Short.MAX_VALUE))
-	        );
-		    
-
-		    frame.getContentPane().add(container);
- 
 		    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		    frame.pack();
 		    frame.setVisible(true);
