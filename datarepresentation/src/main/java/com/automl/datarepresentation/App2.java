@@ -55,46 +55,19 @@ public class App2 {
 
 		    JFrame frame = new JFrame();
 		    
-		    JPanel container = new JPanel();
-	        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(container);
-	        container.setLayout(layout);
-		    SequentialGroup sqGr1 = layout.createSequentialGroup();
+		    JPanel tablesContainer = new JPanel();
 		    
-		    SequentialGroup sqGr2 = layout.createSequentialGroup();
-		    sqGr2.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING));
-                
 		    // create panel for each table in the structure
 			for (Map.Entry<String, Table> entry : tables.entrySet()) {
 
 				Table table = entry.getValue();
 				
 				table.createPanelForTable();
-				sqGr1.addComponent(table.getPanel(), javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-				 	.addGap(38, 38, 38)
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-				    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-					.addGap(38, 38, 38);
-                sqGr2.addComponent(table.getPanel(), javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE);
-		
+				tablesContainer.add(table.getPanel());
 			}
-	     
 
-	        layout.setHorizontalGroup(
-	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	            .addGroup(sqGr1));
-	        
-	        layout.setVerticalGroup(
-	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	            .addGroup(layout.createSequentialGroup()
-	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	                    .addGroup(sqGr2)
-	                 )
-	                .addContainerGap(339, Short.MAX_VALUE))
-	        );
+		    frame.getContentPane().add(tablesContainer);
 		    
-
-		    frame.getContentPane().add(container);
- 
 		    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		    frame.pack();
 		    frame.setVisible(true);
