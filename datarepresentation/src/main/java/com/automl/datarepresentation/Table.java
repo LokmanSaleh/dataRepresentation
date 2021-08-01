@@ -15,9 +15,9 @@ public class Table {
 	private JPanel panel = new JPanel();
 	
 	// for auto SQL request generation
-	private String select;
-	private String from;
-	private String where;
+	private String select = "";
+	private String from = "";
+	private String where = "";
 	
 	// The constructor
 	public Table(String name) {
@@ -114,13 +114,15 @@ public class Table {
 	 */
 	public void generateSelectFromWhere () {
 		
+		select = from = where = "";
+ 
 		for (Map.Entry<String, Column> column : columns.entrySet() ) {
 			
-			select += (column.getValue().getCheckBox().isSelected()) ? column.getKey()+", " : "";
+			select += (column.getValue().getCheckBox().isSelected()) ? name+"."+column.getKey()+", " : "";
 			
 			where += (column.getValue().isForeignKey()) ? 
-						( name +"."+column.getValue().getName() +
-						  "=" + column.getValue().getParentTable()+"."+column.getValue().getParentTableColumn()) :
+						(name +"."+column.getValue().getName() +
+						  "=" + column.getValue().getParentTable()+"."+column.getValue().getParentTableColumn() + " AND ") :
 						("");
 		}
 		
