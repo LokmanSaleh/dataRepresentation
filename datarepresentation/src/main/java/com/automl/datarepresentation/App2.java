@@ -80,7 +80,7 @@ public class App2 {
 			
 			tablesContainer.add(buttonJPanel);
 		    frame.getContentPane().add(tablesContainer);
-		   // frame.getContentPane().add(buttonJPanel);
+		    //frame.getContentPane().add(buttonJPanel);
 
 		    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		    frame.pack();

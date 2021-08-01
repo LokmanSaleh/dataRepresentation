@@ -14,6 +14,10 @@ public class Table {
 	private TreeMap<String, Column> columns = new TreeMap<String, Column> () ;
 	private JPanel panel = new JPanel();
 	
+	// for auto SQL request generation
+	private String select;
+	private String from;
+	private String where;
 	
 	// The constructor
 	public Table(String name) {
@@ -55,6 +59,73 @@ public class Table {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	/**
+	 * @return the select
+	 */
+	public String getSelect() {
+		return select;
+	}
+
+
+	/**
+	 * @param select the select to set
+	 */
+	public void setSelect(String select) {
+		this.select = select;
+	}
+
+
+	/**
+	 * @return the from
+	 */
+	public String getFrom() {
+		return from;
+	}
+
+
+	/**
+	 * @param from the from to set
+	 */
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+
+	/**
+	 * @return the where
+	 */
+	public String getWhere() {
+		return where;
+	}
+
+
+	/**
+	 * @param where the where to set
+	 */
+	public void setWhere(String where) {
+		this.where = where;
+	}
+
+
+	/**
+	 * 
+	 */
+	public void generateSelectFromWhere () {
+		
+		for (Map.Entry<String, Column> column : columns.entrySet() ) {
+			
+			select += (column.getValue().getCheckBox().isSelected()) ? column.getKey()+", " : "";
+			
+			where += (column.getValue().isForeignKey()) ? 
+						( name +"."+column.getValue().getName() +
+						  "=" + column.getValue().getParentTable()+"."+column.getValue().getParentTableColumn()) :
+						("");
+		}
+		
+		from = name +", ";
+		
 	}
 	
     public void createPanelForTable () {
