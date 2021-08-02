@@ -43,8 +43,29 @@
 	<dependency>
 	    <groupId>org.jgrapht</groupId>
 	    <artifactId>jgrapht-core</artifactId>
-	    <version>1.4.0</version>
+	    <version>1.5.1</version>
 	</dependency>
+	
+ <!-- https://mvnrepository.com/artifact/com.github.vlsi.mxgraph/jgraphx -->
+<dependency>
+    <groupId>com.github.vlsi.mxgraph</groupId>
+    <artifactId>jgraphx</artifactId>
+    <version>4.2.2</version>
+</dependency>
+<dependency>
+	<groupId>org.javabits.jgrapht</groupId>
+	<artifactId>jgrapht-core</artifactId>
+	<version>0.9.2</version>
+</dependency>
+ <!-- https://mvnrepository.com/artifact/org.jgrapht/jgrapht-ext -->
+<dependency>
+    <groupId>org.jgrapht</groupId>
+    <artifactId>jgrapht-ext</artifactId>
+    <version>1.1.0</version>
+</dependency>
+ 
+	
+	
 <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
 <dependency>
     <groupId>com.google.guava</groupId>
