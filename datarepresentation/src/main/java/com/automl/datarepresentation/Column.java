@@ -22,13 +22,13 @@ public class Column {
 		this.parentTable = parentTable;
 		this.parentTableColumn = parentTableColumn;
 		
-		String labelValue = (foreignKey) ? (name + " (FK | T(" + parentTable + "), A(" + parentTableColumn + ")")
+		String labelValue = (foreignKey) ? (name + " --> T(" + parentTable + "), A(" + parentTableColumn + ")")
 										 : (name);
 
 		checkBox = new JCheckBox();
 		checkBox.setText(labelValue);
 		
-		// add listner to the checkbox
+		// add listener to the checkbox
 		checkBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
