@@ -1,8 +1,11 @@
 package com.automl.visualizationTest;
 
+import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.geom.Point2D;
@@ -32,7 +35,9 @@ public class GraphPanel extends Container
     DirectedSparseGraph<Number, Number> graph = null;
     VisualizationViewer<Number, Number> vv = null;
     PickedState<Number> pickedState = null;
-
+    Point2D center ;
+    JPanel panel = new JPanel();
+    
     public GraphPanel(Number[][] nodes_list)
     {
         try
@@ -42,8 +47,16 @@ public class GraphPanel extends Container
 
             vv = new VisualizationViewer<Number, Number>
                         (new CircleLayout<Number, Number>(graph), new Dimension(400, 400));
-            vv.getRenderer().setVertexRenderer(new MyRenderer());
-
+            
+            MyRenderer mr = new MyRenderer();
+           
+            vv.getRenderer().setVertexRenderer(mr);
+            center = mr.center;
+            
+            panel.add(new JCheckBox("adadad"));
+            panel.add(new Checkbox("adffsgsf"));
+            panel.setLayout(new GridLayout((int)center.getX(), (int)center.getY()));
+            
             // The vertex pick listener
             pickedState = vv.getPickedVertexState();
             pickedState.addItemListener(new ItemListener()
@@ -100,7 +113,8 @@ public class GraphPanel extends Container
 
     /*re-implement the render functionality to work with internal frames(JInternalFrame)*/
     static class MyRenderer extends JPanel implements Renderer.Vertex<Number, Number>
-    {
+    {	
+    	public Point2D center;
         static final long serialVersionUID = 420000L;
         
         @Override
@@ -112,8 +126,8 @@ public class GraphPanel extends Container
                 GraphicsDecorator graphicsContext = rc.getGraphicsContext();
                 
                 Point2D center = layout.transform(vertex);
-                
-                Dimension size = new Dimension(100, 80);
+                this.center = center;
+                Dimension size = new Dimension(200, 80);
 
                 System.out.printf("Vertex[%d] X = %d Y = %d: Running paintVertex()\n", vertex, (int)center.getX(), (int)center.getY());
 
@@ -121,7 +135,7 @@ public class GraphPanel extends Container
                 sv.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
                 sv.setBackground(Color.GREEN);
                 sv.setPreferredSize(size);
-                sv.add(new JCheckBox("Button1"));
+                sv.add(new JCheckBox(center.getX() + " - " + center.getY()));
                 //OK
                 graphicsContext.draw(sv, rc.getRendererPane(), (int)center.getX(), 
                                      (int)center.getY(), size.width, size.height, true);
@@ -145,5 +159,7 @@ public class GraphPanel extends Container
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+        frame.add(g.panel);
+
     }
 }/*2*/
