@@ -1,4 +1,4 @@
-package com.automl.datarepresentation;
+package com.automl.datarepresentation.bean;
 
 import java.util.Map;
 import java.util.TreeMap;

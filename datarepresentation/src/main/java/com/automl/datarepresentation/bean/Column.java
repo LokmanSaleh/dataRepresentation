@@ -1,4 +1,4 @@
-package com.automl.datarepresentation;
+package com.automl.datarepresentation.bean;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

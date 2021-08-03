@@ -3,6 +3,8 @@ package com.automl.datarepresentation;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.automl.datarepresentation.bean.Table;
+
 /** Veuillez noter que l'auto generation de requet SQL ici est exhaustive,
  * cela, doit retourner une solution correct mais pas du facon performante.
  * une solution performante non exhaustive, besoin de travailler sur les algorithms de graphe
