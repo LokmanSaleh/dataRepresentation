@@ -29,6 +29,7 @@ public class ConnectionInterface extends JFrame {
      * Creates new form Connection
      */
     public ConnectionInterface() {
+    	
         initComponents();
     }
 
@@ -147,7 +148,9 @@ public class ConnectionInterface extends JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConnectionInterface().setVisible(true);
+            	ConnectionInterface conInter = new ConnectionInterface();
+            	conInter.setTitle("Connection Data base");
+                conInter.setVisible(true);
             }
         });
     }
