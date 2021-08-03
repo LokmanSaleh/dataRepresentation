@@ -1,4 +1,4 @@
-package com.automl.datarepresentation;
+package com.automl.datarepresentation.bd;
 
 public class SQLrequest {
 	

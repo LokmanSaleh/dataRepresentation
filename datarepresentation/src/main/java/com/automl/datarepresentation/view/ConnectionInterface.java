@@ -132,13 +132,9 @@ public class ConnectionInterface extends JFrame {
 			stmt.executeQuery("SELECT 1");
 			
 			JOptionPane.showMessageDialog(this, "CONNECTED");
-			
-			//this.setVisible(false);
-			
+						
 			new DataBaseSchema(con);
-			
-			//this.setVisible(false);
-			
+						
 		} catch (Exception e) {
 			
 			JOptionPane.showMessageDialog(this, e.getMessage());
