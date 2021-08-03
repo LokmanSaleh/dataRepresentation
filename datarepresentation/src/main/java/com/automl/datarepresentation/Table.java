@@ -118,6 +118,7 @@ public class Table {
 		
 		boolean checked = false;
 		
+		// TODO: may be one while is sufficient 
 		// if one of the attribute is checked 
 		for (Map.Entry<String, Column> column : columns.entrySet()) {
 			if (column.getValue().getCheckBox().isSelected()) {
