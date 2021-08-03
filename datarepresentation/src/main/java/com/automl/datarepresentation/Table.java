@@ -115,19 +115,31 @@ public class Table {
 	public void generateSelectFromWhere () {
 		
 		select = from = where = "";
- 
-		for (Map.Entry<String, Column> column : columns.entrySet() ) {
-			
-			select += (column.getValue().getCheckBox().isSelected()) ? name+"."+column.getKey()+", " : "";
-			
-			where += (column.getValue().isForeignKey()) ? 
-						(name +"."+column.getValue().getName() +
-						  "=" + column.getValue().getParentTable()+"."+column.getValue().getParentTableColumn() + " AND ") :
-						("");
+		
+		boolean checked = false;
+		
+		// if one of the attribute is checked 
+		for (Map.Entry<String, Column> column : columns.entrySet()) {
+			if (column.getValue().getCheckBox().isSelected()) {
+				checked = true;
+				break;
+			}
 		}
 		
-		from = name +", ";
-		
+		// if one of the attribute checked, add the table on the join 
+		if (checked ) {
+			for (Map.Entry<String, Column> column : columns.entrySet() ) {
+				
+				select += (column.getValue().getCheckBox().isSelected()) ? name+"."+column.getKey()+", " : "";
+				
+				where += (column.getValue().isForeignKey()) ? 
+							(name +"."+column.getValue().getName() +
+							  "=" + column.getValue().getParentTable()+"."+column.getValue().getParentTableColumn() + " AND ") :
+							("");
+			}
+			
+			from = name +", ";
+		}
 	}
 	
     public void createPanelForTable () {
