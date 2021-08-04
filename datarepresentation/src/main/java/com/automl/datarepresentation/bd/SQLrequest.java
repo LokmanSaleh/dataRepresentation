@@ -45,5 +45,5 @@ public class SQLrequest {
 			"\r\n" + 
 			"	WHERE \r\n" + 
 			"\r\n" + 
-			"		TABLE_SCHEMA = 'mydb'";
+			"		TABLE_SCHEMA = ? ";
 		}

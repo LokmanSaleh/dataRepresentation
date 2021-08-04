@@ -119,8 +119,12 @@ public class ConnectionInterface extends JFrame {
 
         pack();
         
-    }                                                                
-
+    }
+    
+    /**
+     * 
+     * @param evt
+     */
     private void jButton1ActionPerformed(ActionEvent evt) {                                         
          
 		try {
@@ -133,8 +137,11 @@ public class ConnectionInterface extends JFrame {
 			stmt.executeQuery("SELECT 1");
 			
 			JOptionPane.showMessageDialog(this, "CONNECTED");
-						
-			new DataBaseSchema(con);
+			
+			// get the name of the data base from the url
+			String database = url.getText().substring(url.getText().lastIndexOf("/")+1, url.getText().length());
+			System.out.println(database);
+			new DataBaseSchema(con, database);
 						
 		} catch (Exception e) {
 			

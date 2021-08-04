@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.Array;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,16 +34,18 @@ import com.mysql.cj.jdbc.result.ResultSetMetaData;
  */
 public class DataBaseSchema {
 
-	public DataBaseSchema(Connection con) {
-		visualizeDataBaseSchema(con);
+	public DataBaseSchema(Connection con, String database) {
+		visualizeDataBaseSchema(con, database);
 	}
 
-	void visualizeDataBaseSchema (Connection con){
+	void visualizeDataBaseSchema (Connection con, String database){
 
 		try {
-			Statement stmt = con.createStatement();
-
-			ResultSet rs = stmt.executeQuery(SQLrequest.GET_RELATIONAL_DB_STUCTURE);
+			PreparedStatement stmt = con.prepareStatement(SQLrequest.GET_RELATIONAL_DB_STUCTURE);
+			
+			stmt.setString(1, database);
+			
+			ResultSet rs = stmt.executeQuery();
 
 			// nom du table, nom du colomn, et contenue de colomn
 			TreeMap<String, Table> tables = new TreeMap<String, Table>();
