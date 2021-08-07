@@ -1,4 +1,4 @@
-package com.automl.datarepresentation;
+package com.automl.datarepresentation.bean;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -108,32 +108,45 @@ public class Table {
 		this.where = where;
 	}
 
-
 	/**
-	 * 
+	 * Verify is any column has been selected
+	 * @return true is any column has been selected
 	 */
-	public void generateSelectFromWhere () {
+	public boolean isAnyColumnSelected () {
 		
-		select = from = where = "";
-		
-		boolean checked = false;
-		
-		// TODO: may be one while is sufficient 
 		// if one of the attribute is checked 
 		for (Map.Entry<String, Column> column : columns.entrySet()) {
-			if (column.getValue().getCheckBox().isSelected()) {
-				checked = true;
-				break;
-			}
+			
+			if (column.getValue().getCheckBox().isSelected()) 
+				return true;
+			
 		}
+		return false;
+	}
+
+	/**
+	 * Generate the Select, From , Where for each table 
+	 */
+	public void generateSelectFromWhere (TreeMap<String, Table> tables) {
 		
+		/**
+		 * Select : The selected attribute.
+		 * From : The current table.
+		 * Where : contain the foreign keys in the table, either selected or not,
+		 *  	   but the parent table of each foreign key has to have at least one column selected,
+		 * 		   to be added in the where.
+		 */
+		
+		select = from = where = "";
+ 		
 		// if one of the attribute checked, add the table on the join 
-		if (checked ) {
+		if (isAnyColumnSelected()) {
+			
 			for (Map.Entry<String, Column> column : columns.entrySet() ) {
 				
 				select += (column.getValue().getCheckBox().isSelected()) ? name+"."+column.getKey()+", " : "";
 				
-				where += (column.getValue().isForeignKey()) ? 
+				where += (column.getValue().isForeignKey() && tables.get(column.getValue().getParentTable()).isAnyColumnSelected()) ? 
 							(name +"."+column.getValue().getName() +
 							  "=" + column.getValue().getParentTable()+"."+column.getValue().getParentTableColumn() + " AND ") :
 							("");
