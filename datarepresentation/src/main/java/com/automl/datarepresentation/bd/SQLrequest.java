@@ -13,7 +13,7 @@ public class SQLrequest {
 			"					select * \r\n" + 
 			"					From INFORMATION_SCHEMA.KEY_COLUMN_USAGE as B\r\n" + 
 			"					WHERE \r\n" + 
-			"					REFERENCED_TABLE_SCHEMA = 'mydb' and \r\n" + 
+			"					REFERENCED_TABLE_SCHEMA = ? and \r\n" + 
 			"					columnName = B.COLUMN_NAME and \r\n" + 
 			"					tableName = B.TABLE_NAME\r\n" + 
 			"\r\n" + 
@@ -25,7 +25,7 @@ public class SQLrequest {
 			"      	 (select REFERENCED_TABLE_NAME \r\n" + 
 			"						From INFORMATION_SCHEMA.KEY_COLUMN_USAGE as B\r\n" + 
 			"						WHERE \r\n" + 
-			"						REFERENCED_TABLE_SCHEMA = 'mydb' and \r\n" + 
+			"						REFERENCED_TABLE_SCHEMA = ? and \r\n" + 
 			"						columnName = B.COLUMN_NAME and \r\n" + 
 			"						tableName = B.TABLE_NAME\r\n" + 
 			"			) as parentTable, \r\n" + 
@@ -33,7 +33,7 @@ public class SQLrequest {
 			"          (select REFERENCED_COLUMN_NAME\r\n" + 
 			"						From INFORMATION_SCHEMA.KEY_COLUMN_USAGE as B\r\n" + 
 			"						WHERE \r\n" + 
-			"						REFERENCED_TABLE_SCHEMA = 'mydb' and \r\n" + 
+			"						REFERENCED_TABLE_SCHEMA = ? and \r\n" + 
 			"						columnName = B.COLUMN_NAME and \r\n" + 
 			"						tableName = B.TABLE_NAME\r\n" + 
 			"			) as parentColumn\r\n" + 

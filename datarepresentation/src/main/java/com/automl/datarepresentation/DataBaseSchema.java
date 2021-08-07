@@ -44,7 +44,10 @@ public class DataBaseSchema {
 			PreparedStatement stmt = con.prepareStatement(SQLrequest.GET_RELATIONAL_DB_STUCTURE);
 			
 			stmt.setString(1, database);
-			
+			stmt.setString(2, database);
+			stmt.setString(3, database);
+			stmt.setString(4, database);
+
 			ResultSet rs = stmt.executeQuery();
 
 			// nom du table, nom du colomn, et contenue de colomn
