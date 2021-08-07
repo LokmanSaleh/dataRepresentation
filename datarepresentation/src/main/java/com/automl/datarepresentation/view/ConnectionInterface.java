@@ -133,6 +133,7 @@ public class ConnectionInterface extends JFrame {
 		try {
 			
 			// test connection
+			@SuppressWarnings("deprecation")
 			Connection con = DriverManager.getConnection(url.getText(), user.getText(), password.getText());
 
 			Statement stmt = con.createStatement();
@@ -141,6 +142,7 @@ public class ConnectionInterface extends JFrame {
 			
 			JOptionPane.showMessageDialog(this, "CONNECTED");
 			
+			@SuppressWarnings("deprecation")
 			DataBase dataBase = new DataBase(url.getText(), user.getText(), password.getText());
 				
  			new DataBaseSchemaController(new DataSchemaService(new SQLrequest(con, dataBase.getName())), dataBase);
