@@ -15,7 +15,10 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
-import com.automl.datarepresentation.DataBaseSchema;
+import com.automl.datarepresentation.bd.SQLrequest;
+import com.automl.datarepresentation.bean.DataBase;
+import com.automl.datarepresentation.controller.DataBaseSchemaController;
+import com.automl.datarepresentation.service.DataSchemaService;
  
 
 /**
@@ -138,10 +141,9 @@ public class ConnectionInterface extends JFrame {
 			
 			JOptionPane.showMessageDialog(this, "CONNECTED");
 			
-			// get the name of the data base from the url
-			String database = url.getText().substring(url.getText().lastIndexOf("/")+1, url.getText().length());
-			System.out.println(database);
-			new DataBaseSchema(con, database);
+			DataBase dataBase = new DataBase(url.getText(), user.getText(), password.getText());
+				
+ 			new DataBaseSchemaController(new DataSchemaService(new SQLrequest(con, dataBase.getName())), dataBase);
 						
 		} catch (Exception e) {
 			
@@ -169,7 +171,6 @@ public class ConnectionInterface extends JFrame {
 	public Connection getConnection() {
 		return connection;
 	}
-
 
 	// Variables declaration  
     private Connection connection;
