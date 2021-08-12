@@ -1,4 +1,4 @@
-package com.automl.datarepresentation;
+package com.automl.datarepresentation.bean;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +28,7 @@ public class Column {
 		checkBox = new JCheckBox();
 		checkBox.setText(labelValue);
 		
-		// add listner to the checkbox
+		// add listener to the checkbox
 		checkBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

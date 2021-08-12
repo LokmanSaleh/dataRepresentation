@@ -1,4 +1,4 @@
-package com.automl.datarepresentation;
+package com.automl.datarepresentation.bean;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -14,6 +14,10 @@ public class Table {
 	private TreeMap<String, Column> columns = new TreeMap<String, Column> () ;
 	private JPanel panel = new JPanel();
 	
+	// for auto SQL request generation
+	private String select = "";
+	private String from = "";
+	private String where = "";
 	
 	// The constructor
 	public Table(String name) {
@@ -55,6 +59,101 @@ public class Table {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	/**
+	 * @return the select
+	 */
+	public String getSelect() {
+		return select;
+	}
+
+
+	/**
+	 * @param select the select to set
+	 */
+	public void setSelect(String select) {
+		this.select = select;
+	}
+
+
+	/**
+	 * @return the from
+	 */
+	public String getFrom() {
+		return from;
+	}
+
+
+	/**
+	 * @param from the from to set
+	 */
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+
+	/**
+	 * @return the where
+	 */
+	public String getWhere() {
+		return where;
+	}
+
+
+	/**
+	 * @param where the where to set
+	 */
+	public void setWhere(String where) {
+		this.where = where;
+	}
+
+	/**
+	 * Verify is any column has been selected
+	 * @return true is any column has been selected
+	 */
+	public boolean isAnyColumnSelected () {
+		
+		// if one of the attribute is checked 
+		for (Map.Entry<String, Column> column : columns.entrySet()) {
+			
+			if (column.getValue().getCheckBox().isSelected()) 
+				return true;
+			
+		}
+		return false;
+	}
+
+	/**
+	 * Generate the Select, From , Where for each table 
+	 */
+	public void generateSelectFromWhere (TreeMap<String, Table> tables) {
+		
+		/**
+		 * Select : The selected attribute.
+		 * From : The current table.
+		 * Where : contain the foreign keys in the table, either selected or not,
+		 *  	   but the parent table of each foreign key has to have at least one column selected,
+		 * 		   to be added in the where.
+		 */
+		
+		select = from = where = "";
+ 		
+		// if one of the attribute checked, add the table on the join 
+		if (isAnyColumnSelected()) {
+			
+			for (Map.Entry<String, Column> column : columns.entrySet() ) {
+				
+				select += (column.getValue().getCheckBox().isSelected()) ? name+"."+column.getKey()+", " : "";
+				
+				where += (column.getValue().isForeignKey() && tables.get(column.getValue().getParentTable()).isAnyColumnSelected()) ? 
+							(name +"."+column.getValue().getName() +
+							  "=" + column.getValue().getParentTable()+"."+column.getValue().getParentTableColumn() + " AND ") :
+							("");
+			}
+			
+			from = name +", ";
+		}
 	}
 	
     public void createPanelForTable () {
