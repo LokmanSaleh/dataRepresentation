@@ -1,6 +1,8 @@
-package com.automl.algorithmsRepresentation;
+package com.automl.algorithmsRepresentation.bean;
 
-public class Interval {
+import java.io.Serializable;
+
+public class Interval implements Serializable{
 	
 	private int min = 0;
 	private int max = Integer.MAX_VALUE;

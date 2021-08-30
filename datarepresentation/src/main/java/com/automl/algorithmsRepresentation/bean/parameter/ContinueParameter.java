@@ -1,6 +1,6 @@
-package com.automl.algorithmsRepresentation.parameter;
+package com.automl.algorithmsRepresentation.bean.parameter;
 
-import com.automl.algorithmsRepresentation.Interval;
+import com.automl.algorithmsRepresentation.bean.Interval;
 
 public class ContinueParameter extends Parameter {
 	

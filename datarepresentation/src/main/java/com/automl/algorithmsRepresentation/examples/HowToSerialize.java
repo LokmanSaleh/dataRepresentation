@@ -1,4 +1,4 @@
-package com.automl.algorithmsRepresentation;
+package com.automl.algorithmsRepresentation.examples;
 
 // Source
 //http://www.java2s.com/Code/Java/Database-SQL-JDBC/Storeandretrieveanobjectfromatable.htm

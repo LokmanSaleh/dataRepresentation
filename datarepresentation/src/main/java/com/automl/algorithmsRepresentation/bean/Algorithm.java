@@ -1,12 +1,12 @@
 package com.automl.algorithmsRepresentation.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.automl.algorithmsRepresentation.bean.parameter.Parameter;
 import com.automl.algorithmsRepresentation.bean.selectionCriteria.SelectionCriteria;
 import com.automl.algorithmsRepresentation.externalSource.MethodInvocationUtils;
 import com.automl.algorithmsRepresentation.externalSource.RuntimeCompiler;
-import com.sun.tools.javac.util.List;
 
 // conserve the object into BLOB object in mysql
 public class Algorithm implements Serializable{
@@ -21,6 +21,14 @@ public class Algorithm implements Serializable{
 	private List<SelectionCriteria> SelectionCriterias;
 	
 	private String execute;
+	
+	public Algorithm(String name, List<Parameter> parameters, List<SelectionCriteria> selectionCriterias, String execute) {
+		super();
+		this.name = name;
+		this.parameters = parameters;
+		SelectionCriterias = selectionCriterias;
+		this.execute = execute;
+	}
 	
 	/**
 	 * @return the name
@@ -76,24 +84,32 @@ public class Algorithm implements Serializable{
 		// TODO : clean
 		// convert the input string processus of the algorithm, into executed code, when call execute method
 
-    	String execute = "System.out.println(\"hello test execute \" + name);" ; 
+    	//String execute = "System.out.println(\"hello test execute \" + name);" ; 
         String className = "ExecuteClass";
         String code =
             "public class ExecuteClass {" + "\n" + 
-            "    public static void execute(String name) {" + "\n" + 
+         //   "    public static void execute(String name) {" + "\n" + 
            
             execute +
             
-            "    }" + "\n" + 
+      //      "    }" + "\n" + 
             "}" + "\n";
 
+        System.out.println(code);
+        
         RuntimeCompiler r = new RuntimeCompiler();
         r.addClass(className, code);
         r.compile();
-
+       
         MethodInvocationUtils.invokeStaticMethod(
             r.getCompiledClass(className), 
             "execute", "lokman");
+	}
+
+	@Override
+	public String toString() {
+		return "Algorithm [name=" + name + ", parameters=" + parameters + ", SelectionCriterias=" + SelectionCriterias
+				+ ", execute=" + execute + "]";
 	}
 	
 }

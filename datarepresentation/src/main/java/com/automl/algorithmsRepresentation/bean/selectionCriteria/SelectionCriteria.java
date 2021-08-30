@@ -1,8 +1,9 @@
-package com.automl.algorithmsRepresentation.selectionCriteria;
+package com.automl.algorithmsRepresentation.bean.selectionCriteria;
 
+import java.io.Serializable;
 
 // in the first version of the project, the criteria are already fixed  
-public class SelectionCriteria {
+public class SelectionCriteria implements Serializable{
 
 	private String name;
 

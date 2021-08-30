@@ -1,10 +1,16 @@
-package com.automl.algorithmsRepresentation.selectionCriteria;
+package com.automl.algorithmsRepresentation.bean.selectionCriteria;
 
-import com.automl.algorithmsRepresentation.Interval;
+import com.automl.algorithmsRepresentation.bean.Interval;
 
 public class NumberOfFeatures extends SelectionCriteria {
 
 	Interval numberOfFeature;
+
+	
+	public NumberOfFeatures(Interval numberOfFeature) {
+		super();
+		this.numberOfFeature = numberOfFeature;
+	}
 
 	/**
 	 * @return the numberOfFeature

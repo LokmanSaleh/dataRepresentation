@@ -1,4 +1,4 @@
-package com.automl.algorithmsRepresentation.parameter;
+package com.automl.algorithmsRepresentation.bean.parameter;
 
 // TODO 
 public class CategorialParameter extends Parameter {
