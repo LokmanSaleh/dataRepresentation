@@ -2,6 +2,7 @@ package com.automl.algorithmsRepresentation.bean.parameter;
 
 import com.automl.algorithmsRepresentation.bean.Interval;
 
+@SuppressWarnings("serial")
 public class ContinueParameter extends Parameter {
 	
 	Interval inter;

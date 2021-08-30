@@ -2,6 +2,7 @@ package com.automl.algorithmsRepresentation.bean;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class Interval implements Serializable{
 	
 	private int min = 0;

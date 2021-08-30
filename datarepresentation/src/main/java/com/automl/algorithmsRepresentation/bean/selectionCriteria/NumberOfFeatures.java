@@ -2,6 +2,7 @@ package com.automl.algorithmsRepresentation.bean.selectionCriteria;
 
 import com.automl.algorithmsRepresentation.bean.Interval;
 
+@SuppressWarnings("serial")
 public class NumberOfFeatures extends SelectionCriteria {
 
 	Interval numberOfFeature;

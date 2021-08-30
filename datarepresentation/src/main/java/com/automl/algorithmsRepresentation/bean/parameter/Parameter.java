@@ -2,13 +2,10 @@ package com.automl.algorithmsRepresentation.bean.parameter;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class Parameter implements Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String name;
+ 
+ 	private String name;
 
 	/**
 	 * @return the name

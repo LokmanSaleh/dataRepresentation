@@ -1,13 +1,8 @@
 package com.automl.algorithmsRepresentation.bean.selectionCriteria;
 
-
+@SuppressWarnings("serial")
 public class TypeOfData extends SelectionCriteria {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
+ 
 	public enum TYPE {CATEGORIAL, CONTINUE, ALLTYPE};
 	
 	private TYPE typeOfData;

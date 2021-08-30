@@ -9,13 +9,9 @@ import com.automl.algorithmsRepresentation.externalSource.MethodInvocationUtils;
 import com.automl.algorithmsRepresentation.externalSource.RuntimeCompiler;
 
 // conserve the object into BLOB object in mysql
+@SuppressWarnings("serial")
 public class Algorithm implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+ 
 	private String name;
 	private List<Parameter> parameters;
 	private List<SelectionCriteria> SelectionCriterias;
