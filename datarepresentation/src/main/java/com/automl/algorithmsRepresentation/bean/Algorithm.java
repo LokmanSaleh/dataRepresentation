@@ -1,11 +1,11 @@
-package com.automl.algorithmsRepresentation;
+package com.automl.algorithmsRepresentation.bean;
 
 import java.io.Serializable;
 
+import com.automl.algorithmsRepresentation.bean.parameter.Parameter;
+import com.automl.algorithmsRepresentation.bean.selectionCriteria.SelectionCriteria;
 import com.automl.algorithmsRepresentation.externalSource.MethodInvocationUtils;
 import com.automl.algorithmsRepresentation.externalSource.RuntimeCompiler;
-import com.automl.algorithmsRepresentation.parameter.Parameter;
-import com.automl.algorithmsRepresentation.selectionCriteria.SelectionCriteria;
 import com.sun.tools.javac.util.List;
 
 // conserve the object into BLOB object in mysql
