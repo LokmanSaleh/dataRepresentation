@@ -76,7 +76,7 @@ public class Algorithm implements Serializable{
 		SelectionCriterias = selectionCriterias;
 	}
 	
-	public void execute() {
+	public void execute(String param) {
 		// TODO : clean
 		// convert the input string processus of the algorithm, into executed code, when call execute method
 
@@ -99,13 +99,13 @@ public class Algorithm implements Serializable{
        
         MethodInvocationUtils.invokeStaticMethod(
             r.getCompiledClass(className), 
-            "execute", "lokman");
+            "execute", param);
 	}
 
 	@Override
 	public String toString() {
 		return "Algorithm [name=" + name + ", parameters=" + parameters + ", SelectionCriterias=" + SelectionCriterias
-				+ ", execute=" + execute + "]";
+				+ ", \n execute =\n" + execute + "]";
 	}
 	
 }

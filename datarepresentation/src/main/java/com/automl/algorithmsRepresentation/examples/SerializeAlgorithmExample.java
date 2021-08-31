@@ -43,17 +43,17 @@ public class SerializeAlgorithmExample {
 	selectionCriterias.add(c2);
 	
 	String execute = "	 public static void execute(String name) { \r\n" + 
-					"		final int NUM_FACTS = 100;\r\n" + 
-					"		for(int i = 0; i < NUM_FACTS; i++)\r\n" + 
-					"			System.out.println( i + \"! is \" + factorial(i));\r\n" + 
-					"	}\r\n" + 
-					"	\r\n" + 
-					"	public static int factorial(int n)\r\n" + 
-					"	{	int result = 1;\r\n" + 
-					"		for(int i = 2; i <= n; i++)\r\n" + 
-					"			result *= i;\r\n" + 
-					"		return result;\r\n" + 
-					"	}";
+					 "		final int NUM_FACTS = 100;\r\n" + 
+				  	 "		for(int i = 0; i < NUM_FACTS; i++)\r\n" + 
+					 "			System.out.println( i + \"! is \" + factorial(i));\r\n" + 
+					 "	}\r\n" + 
+					 "	\r\n" + 
+					 "	public static int factorial(int n)\r\n" + 
+					 "	{	int result = 1;\r\n" + 
+					 "		for(int i = 2; i <= n; i++)\r\n" + 
+					 "			result *= i;\r\n" + 
+					 "		return result;\r\n" + 
+					 "	}";
 	
     Algorithm algo = new Algorithm(name, parameters, selectionCriterias, execute);
      
@@ -75,8 +75,8 @@ public class SerializeAlgorithmExample {
       ByteArrayInputStream baip = new ByteArrayInputStream(st);
       ObjectInputStream ois = new ObjectInputStream(baip);
       Algorithm emp = (Algorithm) ois.readObject();
-      System.out.println("hello employee : " + emp );
-      emp.execute();
+      System.out.println( emp );
+      emp.execute("parametre");
     }
     stmt.close();
     rs.close();
