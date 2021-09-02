@@ -34,8 +34,8 @@ public class SerializeAlgorithmExample {
     String name = "KNN";
     
 	List<Parameter> parameters = new ArrayList<>();
-	Parameter p1 = new ContinueParameter(new Interval(0,20));
-	p1.setName("nombreDeClass");
+	Parameter p1 = new ContinueParameter("nombreDeClass");
+	p1.addInterval(new Interval(0,20));
     parameters.add(p1);
    
 	List<SelectionCriteria> selectionCriterias = new ArrayList<>();

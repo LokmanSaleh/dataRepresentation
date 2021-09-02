@@ -12,13 +12,31 @@ import javax.swing.JTabbedPane;
 import javax.swing.JMenuBar;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
+
+import com.automl.algorithmsRepresentation.bean.Algorithm;
+import com.automl.algorithmsRepresentation.bean.Interval;
+import com.automl.algorithmsRepresentation.bean.TypeOfAlgorithm;
+import com.automl.algorithmsRepresentation.bean.parameter.CategorialParameter;
+import com.automl.algorithmsRepresentation.bean.parameter.ContinueParameter;
+import com.automl.algorithmsRepresentation.bean.parameter.Parameter;
+import com.automl.algorithmsRepresentation.bean.selectionCriteria.NumberOfFeatures;
+import com.automl.algorithmsRepresentation.bean.selectionCriteria.SelectionCriteria;
+import com.automl.algorithmsRepresentation.bean.selectionCriteria.TypeOfData;
+
 import java.awt.Color;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.Panel;
 import java.awt.Choice;
 import javax.swing.JTextArea;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.util.TreeMap;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * 
@@ -28,13 +46,20 @@ import java.awt.GridLayout;
 public class addAlgorithm {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-
+	private JTextField algorithmName;
+	private JTextField paramMax;
+	private JTextField parameterName;
+	private JTextField paramMin;
+	private JTextField nbrOfAttributMax;
+	private JTextField nbrOfAttributMin;
+	
+	// Algorithm params
+	private String name;
+	private TreeMap<String, Parameter> parameters = new TreeMap<>();
+	private TreeMap<String, SelectionCriteria> selectionCriterias = new TreeMap<>();
+	private String execute;
+	private TypeOfAlgorithm typeOfAlgorithm ;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -71,10 +96,16 @@ public class addAlgorithm {
 		lblNewLabel.setBounds(10, 11, 46, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(49, 8, 86, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		algorithmName = new JTextField();
+		algorithmName.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				name = algorithmName.getText();
+			}
+		});
+		algorithmName.setBounds(49, 8, 86, 20);
+		frame.getContentPane().add(algorithmName);
+		algorithmName.setColumns(10);
 		
 		JPanel panel = new JPanel();
 		panel.setToolTipText("");
@@ -89,10 +120,10 @@ public class addAlgorithm {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(44, 42, 64, 20);
-		panel_1.add(textField_2);
+		parameterName = new JTextField();
+		parameterName.setColumns(10);
+		parameterName.setBounds(44, 42, 64, 20);
+		panel_1.add(parameterName);
 		
 		JLabel lblName = new JLabel("Name");
 		lblName.setBounds(10, 45, 29, 14);
@@ -108,23 +139,16 @@ public class addAlgorithm {
 		lblNewLabel_2.setBounds(10, 11, 56, 26);
 		panel_2.add(lblNewLabel_2);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(97, 14, 46, 20);
-		panel_2.add(textField_1);
-		textField_1.setColumns(10);
+		paramMax = new JTextField();
+		paramMax.setBounds(97, 14, 46, 20);
+		panel_2.add(paramMax);
+		paramMax.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(54, 14, 46, 20);
-		textField_3.setColumns(10);
-		panel_2.add(textField_3);
+		paramMin = new JTextField();
+		paramMin.setBounds(54, 14, 46, 20);
+		paramMin.setColumns(10);
+		panel_2.add(paramMin);
 		
-		JButton btnNewButton = new JButton("Append");
-		btnNewButton.setBounds(54, 38, 89, 26);
-		panel_2.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Add");
-		btnNewButton_1.setBounds(141, 155, 71, 23);
-		panel_1.add(btnNewButton_1);
 		
 		Panel panel_3 = new Panel();
 		panel_3.setBounds(10, 10, 152, 26);
@@ -135,9 +159,39 @@ public class addAlgorithm {
 		rdbtnCateg.setBounds(6, 0, 61, 23);
 		panel_3.add(rdbtnCateg);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Cont");
-		rdbtnNewRadioButton.setBounds(69, 0, 61, 23);
-		panel_3.add(rdbtnNewRadioButton);
+		JRadioButton rdbtnCont = new JRadioButton("Cont");
+		rdbtnCont.setBounds(69, 0, 61, 23);
+		panel_3.add(rdbtnCont);
+		
+		JButton append = new JButton("Append");
+		append.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// add the intervals to parameter
+				if (rdbtnCateg.isSelected()) {
+					if (parameters.get(parameterName.getText()) == null ) {
+						Parameter param = new CategorialParameter(parameterName.getText());
+						param.addInterval(new Interval(Integer.parseInt(paramMin.getText()), Integer.parseInt(paramMax.getText())));
+						parameters.put(parameterName.getText(),param);
+					} else {
+						parameters.get(parameterName.getText()).addInterval(new Interval(Integer.parseInt(paramMin.getText()), Integer.parseInt(paramMax.getText())));
+					}
+				} else if (rdbtnCont.isSelected()) {
+					if (parameters.get(parameterName.getText()) == null ) {
+						Parameter param = new ContinueParameter(parameterName.getText());
+						param.addInterval(new Interval(Integer.parseInt(paramMin.getText()), Integer.parseInt(paramMax.getText())));
+						parameters.put(parameterName.getText(),param);
+					} else {
+						parameters.get(parameterName.getText()).addInterval(new Interval(Integer.parseInt(paramMin.getText()), Integer.parseInt(paramMax.getText())));
+					}
+				}	
+			}
+		});
+		append.setBounds(54, 38, 89, 26);
+		panel_2.add(append);
+
+		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup.add(rdbtnCateg);
+		buttonGroup.add(rdbtnCont);
 		
 		JLabel lblNewLabel_1 = new JLabel("Parameters à optimiser");
 		lblNewLabel_1.setBounds(10, 0, 185, 14);
@@ -152,9 +206,18 @@ public class addAlgorithm {
 		lblTypeDalgorithme.setBounds(209, 11, 99, 14);
 		frame.getContentPane().add(lblTypeDalgorithme);
 		
-		Choice choice = new Choice();
-		choice.setBounds(309, 8, 116, 20);
-		frame.getContentPane().add(choice);
+		Choice lTypeOfAlgorithm = new Choice();
+		lTypeOfAlgorithm.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				typeOfAlgorithm = new TypeOfAlgorithm(TypeOfAlgorithm.TYPE.valueOf(lTypeOfAlgorithm.getItem(lTypeOfAlgorithm.getSelectedIndex())));
+				System.out.println("it work");
+			}
+		});
+		lTypeOfAlgorithm.setBounds(309, 8, 116, 20);
+		for (TypeOfAlgorithm.TYPE type : TypeOfAlgorithm.TYPE.values()) 
+			lTypeOfAlgorithm.add(type.toString());
+		frame.getContentPane().add(lTypeOfAlgorithm);
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -176,9 +239,11 @@ public class addAlgorithm {
 		lblNewLabel_3.setBounds(10, 11, 89, 14);
 		panel_6.add(lblNewLabel_3);
 		
-		Choice choice_1 = new Choice();
-		choice_1.setBounds(10, 29, 116, 20);
-		panel_6.add(choice_1);
+		Choice typeOfData = new Choice();
+		typeOfData.setBounds(10, 29, 116, 20);
+		for (TypeOfData.TYPE type : TypeOfData.TYPE.values()) 
+			typeOfData.add(type.toString());
+		panel_6.add(typeOfData);
 		
 		JPanel panel_7 = new JPanel();
 		panel_7.setLayout(null);
@@ -190,19 +255,19 @@ public class addAlgorithm {
 		label.setBounds(10, 34, 56, 26);
 		panel_7.add(label);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(97, 37, 46, 20);
-		panel_7.add(textField_4);
+		nbrOfAttributMax = new JTextField();
+		nbrOfAttributMax.setColumns(10);
+		nbrOfAttributMax.setBounds(97, 37, 46, 20);
+		panel_7.add(nbrOfAttributMax);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(54, 37, 46, 20);
-		panel_7.add(textField_5);
+		nbrOfAttributMin = new JTextField();
+		nbrOfAttributMin.setColumns(10);
+		nbrOfAttributMin.setBounds(54, 37, 46, 20);
+		panel_7.add(nbrOfAttributMin);
 		
-		JLabel lblNombreDattributs = new JLabel("Nombre D'attributs");
-		lblNombreDattributs.setBounds(10, 11, 110, 14);
-		panel_7.add(lblNombreDattributs);
+		JCheckBox nbrOfAttribute = new JCheckBox("Nombre D'attributs");
+		nbrOfAttribute.setBounds(10, 4, 122, 23);
+		panel_7.add(nbrOfAttribute);
 		
 		JPanel panel_8 = new JPanel();
 		panel_8.setBounds(49, 428, -33, 33);
@@ -213,11 +278,29 @@ public class addAlgorithm {
 		frame.getContentPane().add(panel_9);
 		panel_9.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JTextArea textArea = new JTextArea();
-		panel_9.add(textArea);
+		JTextArea lExecute = new JTextArea();
+		panel_9.add(lExecute);
 		
-		JButton btnNewButton_2 = new JButton("Enregistrer");
-		btnNewButton_2.setBounds(354, 650, 89, 23);
-		frame.getContentPane().add(btnNewButton_2);
+		JButton saveAlgorithm = new JButton("Enregistrer");
+		saveAlgorithm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Add selection criteria
+				selectionCriterias.put("typeOfData",new TypeOfData(TypeOfData.TYPE.valueOf(typeOfData.getItem(typeOfData.getSelectedIndex()))));
+				if (nbrOfAttribute.isSelected()) {
+					selectionCriterias.put("numberOfFeatures", new NumberOfFeatures(new Interval(Integer.parseInt(nbrOfAttributMin.getText()), 
+																								 Integer.parseInt(nbrOfAttributMax.getText()))));
+				}
+				
+				// Execute 
+				execute = lExecute.getText();
+				
+				// create the algorithm
+				Algorithm algorithm = new Algorithm(name, parameters, selectionCriterias, typeOfAlgorithm, execute);
+				
+				System.out.println(algorithm);
+			}
+		});
+		saveAlgorithm.setBounds(354, 650, 89, 23);
+		frame.getContentPane().add(saveAlgorithm);
 	}
 }

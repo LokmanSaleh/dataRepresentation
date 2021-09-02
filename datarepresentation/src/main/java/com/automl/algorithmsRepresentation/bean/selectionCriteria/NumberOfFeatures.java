@@ -26,4 +26,9 @@ public class NumberOfFeatures extends SelectionCriteria {
 	public void setNumberOfFeature(Interval numberOfFeature) {
 		this.numberOfFeature = numberOfFeature;
 	}
+
+	@Override
+	public String toString() {
+		return "NumberOfFeatures [numberOfFeature=" + numberOfFeature + "]";
+	}
 }

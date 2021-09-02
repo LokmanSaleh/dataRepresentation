@@ -25,4 +25,10 @@ public class TypeOfData extends SelectionCriteria {
 	public void setTypeOfData(TYPE typeOfData) {
 		this.typeOfData = typeOfData;
 	}
+
+	@Override
+	public String toString() {
+		return "TypeOfData [typeOfData=" + typeOfData + "]";
+	}
+	
 }

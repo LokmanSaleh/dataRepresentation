@@ -1,7 +1,7 @@
 package com.automl.algorithmsRepresentation.bean;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.TreeMap;
 
 import com.automl.algorithmsRepresentation.bean.parameter.Parameter;
 import com.automl.algorithmsRepresentation.bean.selectionCriteria.SelectionCriteria;
@@ -13,14 +13,13 @@ import com.automl.algorithmsRepresentation.externalSource.RuntimeCompiler;
 public class Algorithm implements Serializable{
  
 	private String name;
-	private List<Parameter> parameters;
-	private List<SelectionCriteria> SelectionCriterias;
+	private TreeMap<String, Parameter> parameters;
+	private TreeMap<String, SelectionCriteria> SelectionCriterias;
 	private TypeOfAlgorithm typeOfAlgorithm;
-	
 	private String execute;
-	
-	public Algorithm(String name, List<Parameter> parameters, List<SelectionCriteria> selectionCriterias,
-			TypeOfAlgorithm typeOfAlgorithm, String execute) {
+
+	public Algorithm(String name, TreeMap<String, Parameter> parameters,
+			TreeMap<String, SelectionCriteria> selectionCriterias, TypeOfAlgorithm typeOfAlgorithm, String execute) {
 		super();
 		this.name = name;
 		this.parameters = parameters;
@@ -28,56 +27,49 @@ public class Algorithm implements Serializable{
 		this.typeOfAlgorithm = typeOfAlgorithm;
 		this.execute = execute;
 	}
+
 	/**
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
 	}
+
 	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	/**
 	 * @return the parameters
 	 */
-	public List<Parameter> getParameters() {
+	public TreeMap<String, Parameter> getParameters() {
 		return parameters;
 	}
+
 	/**
 	 * @param parameters the parameters to set
 	 */
-	public void setParameters(List<Parameter> parameters) {
+	public void setParameters(TreeMap<String, Parameter> parameters) {
 		this.parameters = parameters;
 	}
-	/**
-	 * @return the execute
-	 */
-	public String getExecute() {
-		return execute;
-	}
-	/**
-	 * @param execute the execute to set
-	 */
-	public void setExecute(String execute) {
-		this.execute = execute;
-	}
-	
+
 	/**
 	 * @return the selectionCriterias
 	 */
-	public List<SelectionCriteria> getSelectionCriterias() {
+	public TreeMap<String, SelectionCriteria> getSelectionCriterias() {
 		return SelectionCriterias;
 	}
+
 	/**
 	 * @param selectionCriterias the selectionCriterias to set
 	 */
-	public void setSelectionCriterias(List<SelectionCriteria> selectionCriterias) {
+	public void setSelectionCriterias(TreeMap<String, SelectionCriteria> selectionCriterias) {
 		SelectionCriterias = selectionCriterias;
 	}
-	
+
 	/**
 	 * @return the typeOfAlgorithm
 	 */
@@ -90,6 +82,20 @@ public class Algorithm implements Serializable{
 	 */
 	public void setTypeOfAlgorithm(TypeOfAlgorithm typeOfAlgorithm) {
 		this.typeOfAlgorithm = typeOfAlgorithm;
+	}
+
+	/**
+	 * @return the execute
+	 */
+	public String getExecute() {
+		return execute;
+	}
+
+	/**
+	 * @param execute the execute to set
+	 */
+	public void setExecute(String execute) {
+		this.execute = execute;
 	}
 
 	public void execute(String param) {

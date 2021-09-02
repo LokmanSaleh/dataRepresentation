@@ -42,4 +42,10 @@ public class Interval implements Serializable{
 	public void setMax(int max) {
 		this.max = max;
 	}
+
+	@Override
+	public String toString() {
+		return "Interval [min=" + min + ", max=" + max + "]";
+	}
+	
 }

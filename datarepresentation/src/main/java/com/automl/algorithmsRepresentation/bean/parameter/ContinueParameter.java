@@ -4,28 +4,9 @@ import com.automl.algorithmsRepresentation.bean.Interval;
 
 @SuppressWarnings("serial")
 public class ContinueParameter extends Parameter {
-	
-	Interval inter;
 
-	/**
-	 * @param inter
-	 */
-	public ContinueParameter(Interval inter) {
-		super();
-		this.inter = inter;
-	}
-
-	/**
-	 * @return the inter
-	 */
-	public Interval getInter() {
-		return inter;
-	}
-
-	/**
-	 * @param inter the inter to set
-	 */
-	public void setInter(Interval inter) {
-		this.inter = inter;
-	}
+	public ContinueParameter(String name) {
+		super(name);
+ 	}
+ 
 }
