@@ -1,16 +1,29 @@
 package com.automl.algorithmsRepresentation.view;
 
+import java.awt.Choice;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.TreeMap;
 
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JRadioButton;
+import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JCheckBox;
-import javax.swing.JTabbedPane;
-import javax.swing.JMenuBar;
-import javax.swing.UIManager;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import com.automl.algorithmsRepresentation.bean.Algorithm;
@@ -22,21 +35,7 @@ import com.automl.algorithmsRepresentation.bean.parameter.Parameter;
 import com.automl.algorithmsRepresentation.bean.selectionCriteria.NumberOfFeatures;
 import com.automl.algorithmsRepresentation.bean.selectionCriteria.SelectionCriteria;
 import com.automl.algorithmsRepresentation.bean.selectionCriteria.TypeOfData;
-
-import java.awt.Color;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import java.awt.Panel;
-import java.awt.Choice;
-import javax.swing.JTextArea;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
-import java.util.TreeMap;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import com.automl.algorithmsRepresentation.controller.AlgorithmRepresentationController;
 
 /**
  * 
@@ -88,7 +87,7 @@ public class addAlgorithm {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 476, 740);
+		frame.setBounds(100, 100, 490, 740);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -163,9 +162,41 @@ public class addAlgorithm {
 		rdbtnCont.setBounds(69, 0, 61, 23);
 		panel_3.add(rdbtnCont);
 		
+		// print param
+		JPanel paramsPanel = new JPanel();
+		paramsPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		paramsPanel.setBounds(242, 25, 185, 191);
+		panel.add(paramsPanel);
+		paramsPanel.setLayout(null);
+ 
+		JPanel panelCategorialParam = new JPanel();
+		panelCategorialParam.setBounds(10, 92, 165, 89);
+		paramsPanel.add(panelCategorialParam);
+		panelCategorialParam.setLayout(null);
+
+		DefaultListModel<String> modelContinue = new DefaultListModel<>();
+		modelContinue.addElement("a");
+		
+		DefaultListModel<String> modelCategorial = new DefaultListModel<>();
+		JList listCategorial = new JList(modelCategorial);
+		listCategorial.setBounds(158, 85, -155, -79);
+		panelCategorialParam.add(listCategorial);
+		
+		JPanel panelContinueParam = new JPanel();
+		panelContinueParam.setBounds(10, 10, 165, 80);
+		paramsPanel.add(panelContinueParam);
+		panelContinueParam.setLayout(null);
+		
+		JList listContinue = new JList(modelContinue);
+		listContinue.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		listContinue.setBounds(159, 71, -148, -67);
+		panelContinueParam.add(listContinue);
+		
+		// append
 		JButton append = new JButton("Append");
 		append.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				// add the intervals to parameter
 				if (rdbtnCateg.isSelected()) {
 					if (parameters.get(parameterName.getText()) == null ) {
@@ -183,9 +214,30 @@ public class addAlgorithm {
 					} else {
 						parameters.get(parameterName.getText()).addInterval(new Interval(Integer.parseInt(paramMin.getText()), Integer.parseInt(paramMax.getText())));
 					}
-				}	
+				}
+				
+				// print the added parameteres 
+//				ArrayList<String> listArrayCateg = new ArrayList<>();
+//				ArrayList<String> listArrayContinu = new ArrayList<>();
+
+				for (Parameter param : parameters.values()) {
+					
+					if (param.getClass() == CategorialParameter.class) {
+//						listArrayCateg.add(param.getName());
+						modelCategorial.addElement(param.getName());
+						System.out.println(param);
+					} else {
+//						listArrayContinu.add(param.getName());
+						modelContinue.addElement(param.getName());
+
+					}
+				}
+				
+
 			}
+			
 		});
+		
 		append.setBounds(54, 38, 89, 26);
 		panel_2.add(append);
 
@@ -196,11 +248,6 @@ public class addAlgorithm {
 		JLabel lblNewLabel_1 = new JLabel("Parameters à optimiser");
 		lblNewLabel_1.setBounds(10, 0, 185, 14);
 		panel.add(lblNewLabel_1);
-		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_4.setBounds(242, 25, 185, 191);
-		panel.add(panel_4);
 		
 		JLabel lblTypeDalgorithme = new JLabel("Type D'algorithme :");
 		lblTypeDalgorithme.setBounds(209, 11, 99, 14);
@@ -296,6 +343,13 @@ public class addAlgorithm {
 				
 				// create the algorithm
 				Algorithm algorithm = new Algorithm(name, parameters, selectionCriterias, typeOfAlgorithm, execute);
+				
+				try {
+					AlgorithmRepresentationController.saveAlgorithm(algorithm);
+				} catch (IOException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 				System.out.println(algorithm);
 			}
