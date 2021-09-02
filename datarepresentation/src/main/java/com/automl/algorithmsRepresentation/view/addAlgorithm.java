@@ -86,7 +86,7 @@ public class addAlgorithm {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = new JFrame("Ajouter algorithme");
 		frame.setBounds(100, 100, 490, 740);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -121,11 +121,11 @@ public class addAlgorithm {
 		
 		parameterName = new JTextField();
 		parameterName.setColumns(10);
-		parameterName.setBounds(44, 42, 64, 20);
+		parameterName.setBounds(51, 42, 64, 20);
 		panel_1.add(parameterName);
 		
 		JLabel lblName = new JLabel("Name");
-		lblName.setBounds(10, 45, 29, 14);
+		lblName.setBounds(10, 45, 37, 14);
 		panel_1.add(lblName);
 		
 		JPanel panel_2 = new JPanel();
@@ -250,7 +250,7 @@ public class addAlgorithm {
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblTypeDalgorithme = new JLabel("Type D'algorithme :");
-		lblTypeDalgorithme.setBounds(209, 11, 99, 14);
+		lblTypeDalgorithme.setBounds(198, 11, 110, 14);
 		frame.getContentPane().add(lblTypeDalgorithme);
 		
 		Choice lTypeOfAlgorithm = new Choice();
@@ -261,7 +261,7 @@ public class addAlgorithm {
 				System.out.println("it work");
 			}
 		});
-		lTypeOfAlgorithm.setBounds(309, 8, 116, 20);
+		lTypeOfAlgorithm.setBounds(309, 8, 139, 20);
 		for (TypeOfAlgorithm.TYPE type : TypeOfAlgorithm.TYPE.values()) 
 			lTypeOfAlgorithm.add(type.toString());
 		frame.getContentPane().add(lTypeOfAlgorithm);
@@ -273,7 +273,7 @@ public class addAlgorithm {
 		panel_5.setLayout(null);
 		
 		JLabel lblCriteresDeSelection = new JLabel("Criteres de selection");
-		lblCriteresDeSelection.setBounds(10, 11, 110, 14);
+		lblCriteresDeSelection.setBounds(10, 11, 134, 14);
 		panel_5.add(lblCriteresDeSelection);
 		
 		JPanel panel_6 = new JPanel();
@@ -283,11 +283,11 @@ public class addAlgorithm {
 		panel_6.setLayout(null);
 		
 		JLabel lblNewLabel_3 = new JLabel("Type de donnees");
-		lblNewLabel_3.setBounds(10, 11, 89, 14);
+		lblNewLabel_3.setBounds(10, 11, 110, 14);
 		panel_6.add(lblNewLabel_3);
 		
 		Choice typeOfData = new Choice();
-		typeOfData.setBounds(10, 29, 116, 20);
+		typeOfData.setBounds(10, 29, 138, 20);
 		for (TypeOfData.TYPE type : TypeOfData.TYPE.values()) 
 			typeOfData.add(type.toString());
 		panel_6.add(typeOfData);
@@ -313,7 +313,7 @@ public class addAlgorithm {
 		panel_7.add(nbrOfAttributMin);
 		
 		JCheckBox nbrOfAttribute = new JCheckBox("Nombre D'attributs");
-		nbrOfAttribute.setBounds(10, 4, 122, 23);
+		nbrOfAttribute.setBounds(10, 4, 133, 23);
 		panel_7.add(nbrOfAttribute);
 		
 		JPanel panel_8 = new JPanel();
@@ -354,7 +354,7 @@ public class addAlgorithm {
 				System.out.println(algorithm);
 			}
 		});
-		saveAlgorithm.setBounds(354, 650, 89, 23);
+		saveAlgorithm.setBounds(323, 650, 120, 23);
 		frame.getContentPane().add(saveAlgorithm);
 	}
 }
