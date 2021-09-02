@@ -16,6 +16,9 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Panel;
 import java.awt.Choice;
+import javax.swing.JTextArea;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 /**
  * 
@@ -60,11 +63,11 @@ public class addAlgorithm {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1031, 787);
+		frame.setBounds(100, 100, 476, 740);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("name :");
+		JLabel lblNewLabel = new JLabel("Name :");
 		lblNewLabel.setBounds(10, 11, 46, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
@@ -155,7 +158,7 @@ public class addAlgorithm {
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_5.setBounds(10, 280, 438, 137);
+		panel_5.setBounds(10, 280, 438, 109);
 		frame.getContentPane().add(panel_5);
 		panel_5.setLayout(null);
 		
@@ -204,5 +207,17 @@ public class addAlgorithm {
 		JPanel panel_8 = new JPanel();
 		panel_8.setBounds(49, 428, -33, 33);
 		frame.getContentPane().add(panel_8);
+		
+		JPanel panel_9 = new JPanel();
+		panel_9.setBounds(10, 400, 438, 239);
+		frame.getContentPane().add(panel_9);
+		panel_9.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JTextArea textArea = new JTextArea();
+		panel_9.add(textArea);
+		
+		JButton btnNewButton_2 = new JButton("Enregistrer");
+		btnNewButton_2.setBounds(354, 650, 89, 23);
+		frame.getContentPane().add(btnNewButton_2);
 	}
 }
