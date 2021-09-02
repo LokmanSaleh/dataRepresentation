@@ -18,6 +18,7 @@ import java.util.List;
 
 import com.automl.algorithmsRepresentation.bean.Algorithm;
 import com.automl.algorithmsRepresentation.bean.Interval;
+import com.automl.algorithmsRepresentation.bean.TypeOfAlgorithm;
 import com.automl.algorithmsRepresentation.bean.parameter.ContinueParameter;
 import com.automl.algorithmsRepresentation.bean.parameter.Parameter;
 import com.automl.algorithmsRepresentation.bean.selectionCriteria.NumberOfFeatures;
@@ -34,13 +35,18 @@ public class SerializeAlgorithmExample {
     
 	List<Parameter> parameters = new ArrayList<>();
 	Parameter p1 = new ContinueParameter(new Interval(0,20));
+	p1.setName("nombreDeClass");
     parameters.add(p1);
    
 	List<SelectionCriteria> selectionCriterias = new ArrayList<>();
 	SelectionCriteria c1 = new TypeOfData(TypeOfData.TYPE.CATEGORIAL);
+	c1.setName("typeOfData");
 	SelectionCriteria c2 = new NumberOfFeatures(new Interval(2, 7));
+	c2.setName("numberOfFeature");
 	selectionCriterias.add(c1);
 	selectionCriterias.add(c2);
+	
+	TypeOfAlgorithm typeOfAlgorithm = new TypeOfAlgorithm(TypeOfAlgorithm.TYPE.CLASSIFICATION);
 	
 	String execute = "	 public static void execute(String name) { \r\n" + 
 					 "		final int NUM_FACTS = 100;\r\n" + 
@@ -55,7 +61,9 @@ public class SerializeAlgorithmExample {
 					 "		return result;\r\n" + 
 					 "	}";
 	
-    Algorithm algo = new Algorithm(name, parameters, selectionCriterias, execute);
+	// TODO : ca sera mieux de conserver le class Algorithm dans une representation relationnel 
+	// afin de faciliter la recuperation de l'algorithm sans utiliser la serialisation
+    Algorithm algo = new Algorithm(name, parameters, selectionCriterias, typeOfAlgorithm, execute);
      
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     ObjectOutputStream oos = new ObjectOutputStream(baos);

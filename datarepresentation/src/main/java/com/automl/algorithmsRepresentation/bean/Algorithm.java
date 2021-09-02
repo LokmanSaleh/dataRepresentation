@@ -15,17 +15,19 @@ public class Algorithm implements Serializable{
 	private String name;
 	private List<Parameter> parameters;
 	private List<SelectionCriteria> SelectionCriterias;
+	private TypeOfAlgorithm typeOfAlgorithm;
 	
 	private String execute;
 	
-	public Algorithm(String name, List<Parameter> parameters, List<SelectionCriteria> selectionCriterias, String execute) {
+	public Algorithm(String name, List<Parameter> parameters, List<SelectionCriteria> selectionCriterias,
+			TypeOfAlgorithm typeOfAlgorithm, String execute) {
 		super();
 		this.name = name;
 		this.parameters = parameters;
 		SelectionCriterias = selectionCriterias;
+		this.typeOfAlgorithm = typeOfAlgorithm;
 		this.execute = execute;
 	}
-	
 	/**
 	 * @return the name
 	 */
@@ -76,6 +78,20 @@ public class Algorithm implements Serializable{
 		SelectionCriterias = selectionCriterias;
 	}
 	
+	/**
+	 * @return the typeOfAlgorithm
+	 */
+	public TypeOfAlgorithm getTypeOfAlgorithm() {
+		return typeOfAlgorithm;
+	}
+
+	/**
+	 * @param typeOfAlgorithm the typeOfAlgorithm to set
+	 */
+	public void setTypeOfAlgorithm(TypeOfAlgorithm typeOfAlgorithm) {
+		this.typeOfAlgorithm = typeOfAlgorithm;
+	}
+
 	public void execute(String param) {
 		// TODO : clean
 		// convert the input string processus of the algorithm, into executed code, when call execute method

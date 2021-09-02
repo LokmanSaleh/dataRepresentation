@@ -7,7 +7,6 @@ public class TypeOfData extends SelectionCriteria {
 	
 	private TYPE typeOfData;
 
-	
 	public TypeOfData(TYPE typeOfData) {
 		super();
 		this.typeOfData = typeOfData;
