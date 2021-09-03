@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 import com.automl.algorithmsRepresentation.bean.Algorithm;
 import com.automl.algorithmsRepresentation.bean.Interval;
@@ -33,18 +34,18 @@ public class SerializeAlgorithmExample {
     //Employee employee = new Employee(42, "AA", 9);
     String name = "KNN";
     
-	List<Parameter> parameters = new ArrayList<>();
+    TreeMap<String, Parameter> parameters = new TreeMap();
 	Parameter p1 = new ContinueParameter("nombreDeClass");
 	p1.addInterval(new Interval(0,20));
-    parameters.add(p1);
+    parameters.put(p1.getName(), p1);
    
-	List<SelectionCriteria> selectionCriterias = new ArrayList<>();
+	TreeMap<String, SelectionCriteria> selectionCriterias = new TreeMap();
 	SelectionCriteria c1 = new TypeOfData(TypeOfData.TYPE.CATEGORIAL);
 	c1.setName("typeOfData");
 	SelectionCriteria c2 = new NumberOfFeatures(new Interval(2, 7));
 	c2.setName("numberOfFeature");
-	selectionCriterias.add(c1);
-	selectionCriterias.add(c2);
+	selectionCriterias.put(c1.getName(), c1);
+	selectionCriterias.put(c2.getName(), c2);
 	
 	TypeOfAlgorithm typeOfAlgorithm = new TypeOfAlgorithm(TypeOfAlgorithm.TYPE.CLASSIFICATION);
 	

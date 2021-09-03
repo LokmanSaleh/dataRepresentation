@@ -121,7 +121,7 @@ public class addAlgorithm {
 		
 		parameterName = new JTextField();
 		parameterName.setColumns(10);
-		parameterName.setBounds(51, 42, 64, 20);
+		parameterName.setBounds(51, 42, 111, 20);
 		panel_1.add(parameterName);
 		
 		JLabel lblName = new JLabel("Name");
