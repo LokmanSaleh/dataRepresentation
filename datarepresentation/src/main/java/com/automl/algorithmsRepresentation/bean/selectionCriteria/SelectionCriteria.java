@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 // in the first version of the project, the criteria are already fixed  
 @SuppressWarnings("serial")
-public class SelectionCriteria implements Serializable{
+public abstract class SelectionCriteria implements Serializable{
 
 	private String name;
 

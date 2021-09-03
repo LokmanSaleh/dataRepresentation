@@ -7,7 +7,7 @@ import java.util.List;
 import com.automl.algorithmsRepresentation.bean.Interval;
 
 @SuppressWarnings("serial")
-public class Parameter implements Serializable {
+public abstract class Parameter implements Serializable {
  
  	private String name;
  	private List<Interval> intervals = new ArrayList<Interval>();
