@@ -14,7 +14,7 @@ public class Column {
 	private String parentTableColumn;
 	private JCheckBox checkBox;
 
-	public Column(String tablename, String name, Boolean foreignKey, String parentTable, String parentTableColumn) {
+	public Column(final String tablename, final String name, Boolean foreignKey, String parentTable, String parentTableColumn) {
 		
 		this.tableName = tablename;
 		this.name = name;

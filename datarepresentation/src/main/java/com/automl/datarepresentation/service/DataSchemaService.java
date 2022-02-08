@@ -180,7 +180,7 @@ public class DataSchemaService {
 	 * @param frame The Jframe 
 	 * @param dataBase The database
 	 */
-	public void createSqlRequestButtonListener(JButton createSqlRequestButton, JFrame frame, DataBase dataBase) {
+	public void createSqlRequestButtonListener(JButton createSqlRequestButton, final JFrame frame, final DataBase dataBase) {
 
 		// when clicking
 		createSqlRequestButton.addActionListener(new ActionListener() {
