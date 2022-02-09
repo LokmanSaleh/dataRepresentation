@@ -35,23 +35,19 @@ public class DataBaseSchemaController {
 		dataBase.setTables(dataSchemaService.getTables());
 
 		JFrame frame = new JFrame("Auto generated SQL request");
-
-		JPanel dataBasePanel = dataBase.createPanelForEachTable();
-
-		JPanel buttonJPanel = new JPanel();
+		
+		JPanel mainPanel = new JPanel();
+		
+		mainPanel.add(dataBase.createDesktopPaneForTables());
+		
 		JButton createSqlRequestButton = new JButton("create SQL request");
-
-		// on click button listener
 		dataSchemaService.createSqlRequestButtonListener(createSqlRequestButton, frame, dataBase);
-
-		buttonJPanel.add(createSqlRequestButton);
-
-		dataBasePanel.add(buttonJPanel);
-
-		frame.getContentPane().add(dataBasePanel);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainPanel.add(createSqlRequestButton);
+		
+		frame.add(mainPanel);
 		frame.pack();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		frame.setVisible(true);
 
 		// on close frame listener

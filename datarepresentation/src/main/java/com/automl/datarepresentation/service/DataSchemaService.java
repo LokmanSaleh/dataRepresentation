@@ -48,7 +48,10 @@ public class DataSchemaService {
 
 			if (tables.get(rs.getString("tableName")) == null) {
 
-				tables.put(rs.getString("tableName"), new Table(rs.getString("tableName")));
+				Table table = new Table(rs.getString("tableName"));
+				table.setNumber(tables.size());
+				
+				tables.put(rs.getString("tableName"), table);
 
 				tables.get(rs.getString("tableName")).getColumns().put(rs.getString("columnName"),
 						new Column(rs.getString("tablename"), rs.getString("columnName"), rs.getBoolean("isforeignkey"),
@@ -61,6 +64,7 @@ public class DataSchemaService {
 			}
 
 		}
+		
 		
 		return tables;
 

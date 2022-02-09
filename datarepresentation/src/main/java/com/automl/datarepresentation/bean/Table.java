@@ -1,23 +1,32 @@
 package com.automl.datarepresentation.bean;
 
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.Point2D;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
 
+import com.automl.visualizationTest.JDPTest2;
+
 public class Table {
 	
 	private String name;
 	private TreeMap<String, Column> columns = new TreeMap<String, Column> () ;
-	private JPanel panel = new JPanel();
+	private JInternalFrame jInternalFrame = new JInternalFrame();
 	
 	// for auto SQL request generation
 	private String select = "";
 	private String from = "";
 	private String where = "";
+	
+	private int number;
+	private Point2D location;
 	
 	// The constructor
 	public Table(String name) {
@@ -27,10 +36,43 @@ public class Table {
 	
 
 	/**
+	 * @return the number
+	 */
+	public int getNumber() {
+		return number;
+	}
+
+
+	/**
+	 * @param number the number to set
+	 */
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	/**
+	 * @return the location
+	 */
+	public Point2D getLocation() {
+		return location;
+	}
+
+
+	/**
+	 * @param location the location to set
+	 */
+	public void setLocation(Point2D location) {
+		this.location = location;
+	}
+
+
+	/**
 	 * @return the panel
 	 */
-	public JPanel getPanel() {
-		return panel;
+	public JInternalFrame getJInternalFrame() {
+
+        
+		return jInternalFrame;
 	}
 
 	/**
@@ -156,12 +198,13 @@ public class Table {
 		}
 	}
 	
-    public void createPanelForTable () {
+    public void createJinternalFrameForTable () {
     	  	
         JLabel classTitle = new javax.swing.JLabel();
-        
-        classTitle.setText(name);
+//        
+//        classTitle.setText(name);
 
+        JPanel panel = new JPanel();
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(panel);
         
         panel.setLayout(jPanelLayout);
@@ -198,6 +241,22 @@ public class Table {
        // setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panel.setToolTipText("");
+        
+        jInternalFrame.add(panel);
+		jInternalFrame.setTitle(number+ " " + name);
+		//jInternalFrame.setSize(160, 50*columns.size());
+		
+		jInternalFrame.setLocation((int)location.getX(), (int)location.getY());
+		jInternalFrame.setResizable(true);
+		jInternalFrame.pack();
+        jInternalFrame.setVisible(true);
+        jInternalFrame.addComponentListener(new ComponentAdapter() {
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+            	jInternalFrame.repaint();
+            }
+        });
 
     }
 }

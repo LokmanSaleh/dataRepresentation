@@ -3,6 +3,8 @@ package com.automl.visualizationTest;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -18,8 +20,24 @@ public class GraphPanel2 extends Container
     DirectedSparseGraph<Number, Number> graph = null;
     VisualizationViewer<Number, Number> vv = null;
     PickedState<Number> pickedState = null;
+    ArrayList<Point2D> listLocationOfTables = new ArrayList<Point2D>();
+    
+    
+    /**
+	 * @return the listLocationOfTables
+	 */
+	public ArrayList<Point2D> getListLocationOfTables() {
+		return listLocationOfTables;
+	}
 
-    public GraphPanel2(Number[][] nodes_list)
+	/**
+	 * @param listLocationOfTables the listLocationOfTables to set
+	 */
+	public void setListLocationOfTables(ArrayList<Point2D> listLocationOfTables) {
+		this.listLocationOfTables = listLocationOfTables;
+	}
+
+	public GraphPanel2(Number[][] nodes_list)
     {
         try
         {
@@ -29,11 +47,11 @@ public class GraphPanel2 extends Container
             vv = new VisualizationViewer<Number, Number>
                         (new CircleLayout<Number, Number>(graph), new Dimension(600, 400));
             
-            Point2D center =  vv.getGraphLayout().transform(0) ;
-            System.out.printf("Vertex[%d] X = %d Y = %d: Running paintVertex()\n", 1, (int)center.getX(), (int)center.getY());
-              center =  vv.getGraphLayout().transform(1) ;
-            System.out.printf("Vertex[%d] X = %d Y = %d: Running paintVertex()\n", 1, (int)center.getX(), (int)center.getY());
-           // vv.getRenderer().setVertexRenderer(new MyRenderer());
+            Point2D center ;
+            for (int i = 0; i< nodes_list.length; i ++ ) {
+            	center =  vv.getGraphLayout().transform(i) ;
+            	listLocationOfTables.add(center);
+            }
  
         }
         catch (Exception e)
@@ -66,7 +84,7 @@ public class GraphPanel2 extends Container
         /*Create the window*/
         Number[][] list = {{0, 1, 3}, {1, 3, 1}, {2, 2, 3}, {3, 2, 0}};
         GraphPanel2 g = new GraphPanel2(list);
-
+        System.out.println(g.listLocationOfTables);
 
     }
 }/*2*/
