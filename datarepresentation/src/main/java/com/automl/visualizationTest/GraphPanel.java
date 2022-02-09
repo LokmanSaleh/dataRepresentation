@@ -1,5 +1,6 @@
 package com.automl.visualizationTest;
 
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -13,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import org.apache.commons.collections15.Transformer;
 
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
@@ -42,7 +45,13 @@ public class GraphPanel extends Container
 
             vv = new VisualizationViewer<Number, Number>
                         (new CircleLayout<Number, Number>(graph), new Dimension(400, 400));
+             
             vv.getRenderer().setVertexRenderer(new MyRenderer());
+            
+            // The following code adds capability for mouse picking of vertices/edges. Vertices can even be moved!
+            final DefaultModalGraphMouse<String,Number> graphMouse = new DefaultModalGraphMouse<String,Number>();
+            vv.setGraphMouse(graphMouse);
+            graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
 
             // The vertex pick listener
             pickedState = vv.getPickedVertexState();
@@ -67,11 +76,7 @@ public class GraphPanel extends Container
                 }
             });
 
-            // The following code adds capability for mouse picking of
-            // vertices/edges. Vertices can even be moved!
-            final DefaultModalGraphMouse<Number, Number> graphMouse = new DefaultModalGraphMouse<Number, Number>();
-            vv.setGraphMouse(graphMouse);
-            graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
+ 
         }
         catch (Exception e)
         {
@@ -121,6 +126,7 @@ public class GraphPanel extends Container
                 sv.setBackground(Color.GREEN);
                 sv.setPreferredSize(size);
                 sv.add(new JCheckBox("Button1"));
+                sv.add(new JButton("Hello"));
                 //OK
                 graphicsContext.draw(sv, rc.getRendererPane(), (int)center.getX(), 
                                      (int)center.getY(), size.width, size.height, true);
