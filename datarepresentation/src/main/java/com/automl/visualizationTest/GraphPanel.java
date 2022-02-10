@@ -36,12 +36,12 @@ public class GraphPanel extends Container
     VisualizationViewer<Number, Number> vv = null;
     PickedState<Number> pickedState = null;
 
-    public GraphPanel(Number[][] nodes_list)
+    public GraphPanel(Number[][] nodes_list, int numberOfNodes)
     {
         try
         {
             graph = new DirectedSparseGraph<Number, Number>();
-            construct_graph(nodes_list);
+            construct_graph(nodes_list, numberOfNodes);
 
             vv = new VisualizationViewer<Number, Number>
                         (new CircleLayout<Number, Number>(graph), new Dimension(400, 400));
@@ -92,14 +92,20 @@ public class GraphPanel extends Container
     }
 
     /*This one should be reimplemented*/
-    private void construct_graph(Number[][] nodes_list)
+    private void construct_graph(Number[][] EdgeList, int numberOfNodes)
     {
-        int i = 0;
+    	 int i = 0;
+         /*add the nodes*/
+         for(i=0; i<numberOfNodes; i++)
+         {
+             graph.addVertex(i);
+         }
+    	
+         i = 0;
         /*add the nodes*/
-        for(i=0; i<nodes_list.length; i++)
+        for(i=0; i<EdgeList.length; i++)
         {
-            graph.addVertex(i);
-            graph.addEdge(nodes_list[i][0], nodes_list[i][1], nodes_list[i][2]);
+            graph.addEdge(EdgeList[i][0], EdgeList[i][1], EdgeList[i][2]);
         }
     }
 
@@ -143,8 +149,8 @@ public class GraphPanel extends Container
     {
         /*Create the window*/
         JFrame frame = new JFrame("BLABLA");
-        Number[][] list = {{0, 1, 3}, {1, 3, 1}, {2, 2, 3}, {3, 2, 0}};
-        GraphPanel g = new GraphPanel(list);
+        Number[][] list = {{0, 1, 3}, {1, 3, 1}, {2, 2, 3}, {3, 2, 0}, {4, 0, 1}};
+        GraphPanel g = new GraphPanel(list, 4);
         g.attach_to_frame(frame);
         frame.getContentPane().setPreferredSize(new Dimension(640, 480));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

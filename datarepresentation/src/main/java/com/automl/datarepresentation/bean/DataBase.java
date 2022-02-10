@@ -1,15 +1,20 @@
 package com.automl.datarepresentation.bean;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Stroke;
+import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
 
 import com.automl.visualizationTest.GraphPanel2;
 
@@ -126,51 +131,50 @@ public class DataBase {
 	 */
 	public JDesktopPane createDesktopPaneForTables() {
 
-		JDesktopPane jDesktopPane = new JDesktopPane();
-
 		// contruct graph for the tables. 
 		
 			// construct the array list of nodes and distinations  
-			ArrayList<ArrayList<Number>> listOfNodesAndConnections = new ArrayList<ArrayList<Number>>();
+			ArrayList<ArrayList<Number>> listOfEdges = new ArrayList<ArrayList<Number>>();
+			int numberOfEdge = 0;
 			for (Map.Entry<String, Table> entry : tables.entrySet()) {
 				
-				ArrayList<Number> node = new ArrayList<Number>();
 				Table table = entry.getValue();
 				
-				// the number of the node
-				node.add(table.getNumber());
-				
-				// the arrow come from this node
-				node.add(table.getNumber());
-				
-				// TODO: No only we add one destination For each table, 
-				// the destination 
+ 				// the destination 
 				for (Map.Entry<String, Column> entyColumn : table.getColumns().entrySet()) {
 					Column column= entyColumn.getValue();
 					if(column.isForeignKey()) {
-						node.add(tables.get(column.getParentTable()).getNumber());
-						break;
+						
+						ArrayList<Number> edge = new ArrayList<Number>();
+						
+						// the number of the edge
+						edge.add(numberOfEdge);
+						
+						// the arrow come from this node
+						edge.add(table.getNumber());
+						
+						// the destination table
+						edge.add(tables.get(column.getParentTable()).getNumber());
+						
+						listOfEdges.add(edge);
+						
+						numberOfEdge++;
 					}
 				}
-				
-				if (node.size() < 3) {
-					node.add(table.getNumber());
-				}
-				listOfNodesAndConnections.add(node);
 			}
 			
 			// Transfer the array list to classic array list 
-				Number[][] list = new Number [listOfNodesAndConnections.size()][];
-				for (int i = 0; i < listOfNodesAndConnections.size(); i++) {
-				    ArrayList<Number> row = listOfNodesAndConnections.get(i);
-				    list[i] = new Number [row.size()];
+				Number[][] listOfEdgesT = new Number [listOfEdges.size()][];
+				for (int i = 0; i < listOfEdges.size(); i++) {
+				    ArrayList<Number> row = listOfEdges.get(i);
+				    listOfEdgesT[i] = new Number [row.size()];
 				    for (int j = 0;j<row.size(); j++) {
-				    	list[i][j] = row.get(j);
+				    	listOfEdgesT[i][j] = row.get(j);
 				    }
 				}
 				
 			// build the graph 
- 		        GraphPanel2 g = new GraphPanel2(list);
+ 		        GraphPanel2 g = new GraphPanel2(listOfEdgesT, tables.size());
 		        ArrayList<Point2D> locationsOfTables = g.getListLocationOfTables();
 		        
 		        // TODO : we can impove the processus by using the name isntead the number to get the table
@@ -181,10 +185,54 @@ public class DataBase {
 		        		if (table.getNumber() == i ) {
 		        			table.setLocation(locationsOfTables.get(i));
 		        		}
-		    			
 		        	}
 		        }
+		        
+		      // Set the list of edgeLocation
+		        ArrayList<ArrayList<Point2D>> locationOfEdges = new ArrayList<ArrayList<Point2D>>();
+				for (int i = 0; i < listOfEdgesT.length; i++) {
+					ArrayList<Point2D> locationOfEdge = new ArrayList<Point2D> ();
+					locationOfEdge.add(locationsOfTables.get((int)listOfEdgesT[i][1]));
+					locationOfEdge.add(locationsOfTables.get((int)listOfEdgesT[i][2]));
+					
+					locationOfEdges.add(locationOfEdge);
+				}
+				
+				
+		JDesktopPane jDesktopPane = new JDesktopPane() {
+
+			@Override
+			protected void paintComponent(Graphics g) {
+		        Graphics2D g2d = (Graphics2D) g;
+		        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+		            RenderingHints.VALUE_ANTIALIAS_ON);
+		        g2d.setColor(Color.lightGray);
+		        g2d.fillRect(0, 0, getWidth(), getHeight());
+		        g2d.setColor(Color.blue);
+//		        Stroke s = new BasicStroke(4.0f);
+//		        g2d.setStroke(s);
+		        
+		        
+		        for (ArrayList<Point2D> locationOfEdge : locationOfEdges) {
+			        int x1 = (int) locationOfEdge.get(0).getX() +30 ;//+ one.getWidth() / 2;
+			        int y1 = (int) locationOfEdge.get(0).getY() ;// + one.getHeight() / 2;
+			        int x2 = (int) locationOfEdge.get(1).getX() + 30 ;// + two.getWidth() / 2;
+			        int y2 = (int) locationOfEdge.get(1).getY() ;// + two.getHeight() / 2;
+
+			        CubicCurve2D cubcurve = new CubicCurve2D.Float(x1,y1,x1+200,y1-115,x2-200,y2+115,x2,y2);
+			        g2d.draw(cubcurve);
+			        //break;
+		        }
+
+			}};
 			
+			// TODO : to improve 
+			for (Map.Entry<String, Table> entry : tables.entrySet()) {
+				
+				Table table = entry.getValue();
+				table.setjDesktopPane(jDesktopPane);
+			}
+
 	    // create panel for each table in the structure
 		for (Map.Entry<String, Table> entry : tables.entrySet()) {
 
@@ -195,7 +243,9 @@ public class DataBase {
 			
 			jDesktopPane.add(currentInternalFrame);
 		}
-		jDesktopPane.setPreferredSize(new Dimension(640, 480));
+		
+		jDesktopPane.setPreferredSize(new Dimension(740, 740));
+		//jDesktopPane.disable();
 		return jDesktopPane;
 	}
 }

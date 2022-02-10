@@ -33,6 +33,7 @@ public class JDPTest2 extends JDesktopPane {
     private static final Stroke s = new BasicStroke(4.0f);
     private MyFrame one = new MyFrame("One", 380, 100);
     private MyFrame two = new MyFrame("Two", 200, 280);
+    private MyFrame three = new MyFrame("Three", 300, 300);
     
     CubicCurve2D cubcurve;
     public JDPTest2() {
@@ -95,6 +96,7 @@ public class JDPTest2 extends JDesktopPane {
         	
         	
         this.add(two);
+        this.add(three);
 
     }
 
@@ -107,14 +109,21 @@ public class JDPTest2 extends JDesktopPane {
         g2d.fillRect(0, 0, getWidth(), getHeight());
         g2d.setColor(Color.blue);
         g2d.setStroke(s);
-        int x1 = one.getX() + one.getWidth() / 2;
-        int y1 = one.getY() + one.getHeight() / 2;
-        int x2 = two.getX() + two.getWidth() / 2;
-        int y2 = two.getY() + two.getHeight() / 2;
+        int x1 = one.getX() ;//+ one.getWidth() / 2;
+        int y1 = one.getY();// + one.getHeight() / 2;
+        
+        int x2 = two.getX() ;//+ two.getWidth() / 2;
+        int y2 = two.getY() ;//+ two.getHeight() / 2;
 
+        int x3 = three.getX() ;//+ three.getWidth() / 2;
+        int y3 = three.getY() ;//+ three.getHeight() / 2;
+        
         cubcurve = new CubicCurve2D.Float(x1,y1,x1+200,y1-115,x2-200,y2+115,x2,y2);
         g2d.draw(cubcurve);
 
+        cubcurve = new CubicCurve2D.Float(x1,y1,x1+200,y1-115,x3-200,y3+115,x3,y3);
+        g2d.draw(cubcurve);
+        
        // g2d.drawLine(x1, y1, x2, y2);
     }
 

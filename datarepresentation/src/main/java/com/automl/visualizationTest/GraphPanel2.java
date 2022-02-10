@@ -37,18 +37,18 @@ public class GraphPanel2 extends Container
 		this.listLocationOfTables = listLocationOfTables;
 	}
 
-	public GraphPanel2(Number[][] nodes_list)
+	public GraphPanel2(Number[][] nodes_list, int numberOfNodes)
     {
         try
         {
             graph = new DirectedSparseGraph<Number, Number>();
-            construct_graph(nodes_list);
+            construct_graph(nodes_list, numberOfNodes);
 
             vv = new VisualizationViewer<Number, Number>
                         (new CircleLayout<Number, Number>(graph), new Dimension(600, 400));
             
             Point2D center ;
-            for (int i = 0; i< nodes_list.length; i ++ ) {
+            for (int i = 0; i< numberOfNodes; i ++ ) {
             	center =  vv.getGraphLayout().transform(i) ;
             	listLocationOfTables.add(center);
             }
@@ -68,14 +68,20 @@ public class GraphPanel2 extends Container
     }
 
     /*This one should be reimplemented*/
-    private void construct_graph(Number[][] nodes_list)
+    private void construct_graph(Number[][] EdgeList, int numberOfNodes)
     {
-        int i = 0;
+    	 int i = 0;
+         /*add the nodes*/
+         for(i=0; i<numberOfNodes; i++)
+         {
+             graph.addVertex(i);
+         }
+    	
+         i = 0;
         /*add the nodes*/
-        for(i=0; i<nodes_list.length; i++)
+        for(i=0; i<EdgeList.length; i++)
         {
-            graph.addVertex(i);
-            graph.addEdge(nodes_list[i][0], nodes_list[i][1], nodes_list[i][2]);
+            graph.addEdge(EdgeList[i][0], EdgeList[i][1], EdgeList[i][2]);
         }
     }
 
@@ -83,7 +89,7 @@ public class GraphPanel2 extends Container
     {
         /*Create the window*/
         Number[][] list = {{0, 1, 3}, {1, 3, 1}, {2, 2, 3}, {3, 2, 0}};
-        GraphPanel2 g = new GraphPanel2(list);
+        GraphPanel2 g = new GraphPanel2(list, 4);
         System.out.println(g.listLocationOfTables);
 
     }
