@@ -10,7 +10,6 @@ import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Map;
@@ -21,7 +20,6 @@ import javax.swing.JInternalFrame;
 
 import com.automl.datarepresentation.externalFunctions.DrawLineWithArrow;
 import com.automl.datarepresentation.externalFunctions.GraphBuilderPositions;
-import com.automl.visualizationTest.GraphPanel2;
 
 public class DataBase {
 	
@@ -182,7 +180,7 @@ public class DataBase {
  		        GraphBuilderPositions g = new GraphBuilderPositions(listOfEdgesT, tables.size());
 		        ArrayList<Point2D> locationsOfTables = g.getListLocationOfTables();
 		        
-		        // TODO : we can impove the processus by using the name isntead the number to get the table
+		        // TODO : we can impove the processus by using the name instead the number to get the table
 	        // Set the returned location for the tables
 		        for (int i = 0 ; i< locationsOfTables.size(); i++) {
 		        	for (Map.Entry<String, Table> entry : tables.entrySet()) {
@@ -225,7 +223,7 @@ public class DataBase {
 						}
 					}
 
-				    DrawLineWithArrow.draw(g2d, x1, y1,locationEnd , s, s, 20);
+				    DrawLineWithArrow.draw(g2d, x1, y1, locationEnd, s, s, 20);
 		        }
 
 			}};
