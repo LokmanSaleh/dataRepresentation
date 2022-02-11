@@ -271,13 +271,7 @@ public class Table {
 		jInternalFrame.setResizable(true);
 		jInternalFrame.pack();
         jInternalFrame.setVisible(true);
-        jInternalFrame.addComponentListener(new ComponentAdapter() {
 
-            @Override
-            public void componentMoved(ComponentEvent e) {
-            	//jInternalFrame.repaint();
-            }
-        });
 
     }
 }

@@ -5,14 +5,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.CubicCurve2D;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.print.attribute.standard.NumberUp;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
@@ -198,31 +204,45 @@ public class DataBase {
 					locationOfEdges.add(locationOfEdge);
 				}
 				
-				
+
 		JDesktopPane jDesktopPane = new JDesktopPane() {
 
 			@Override
 			protected void paintComponent(Graphics g) {
-		        Graphics2D g2d = (Graphics2D) g;
-		        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-		            RenderingHints.VALUE_ANTIALIAS_ON);
-		        g2d.setColor(Color.lightGray);
-		        g2d.fillRect(0, 0, getWidth(), getHeight());
-		        g2d.setColor(Color.blue);
-//		        Stroke s = new BasicStroke(4.0f);
-//		        g2d.setStroke(s);
-		        
-		        
-		        for (ArrayList<Point2D> locationOfEdge : locationOfEdges) {
-			        int x1 = (int) locationOfEdge.get(0).getX() +30 ;//+ one.getWidth() / 2;
-			        int y1 = (int) locationOfEdge.get(0).getY() ;// + one.getHeight() / 2;
-			        int x2 = (int) locationOfEdge.get(1).getX() + 30 ;// + two.getWidth() / 2;
-			        int y2 = (int) locationOfEdge.get(1).getY() ;// + two.getHeight() / 2;
+				Graphics2D g2d = (Graphics2D) g;
+				g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+				g2d.setColor(Color.lightGray);
+				g2d.fillRect(0, 0, getWidth(), getHeight());
+				g2d.setColor(Color.blue);
+				Stroke s = new BasicStroke(4.0f);
+				g2d.setStroke(s);
+				
+				int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+				
+				for (int i = 0; i < listOfEdgesT.length; i++) {
 
-			        CubicCurve2D cubcurve = new CubicCurve2D.Float(x1,y1,x1+200,y1-115,x2-200,y2+115,x2,y2);
-			        g2d.draw(cubcurve);
-			        //break;
+					for (Map.Entry<String, Table> entry : tables.entrySet()) {
+						Table table = entry.getValue();
+
+						if ( listOfEdgesT[i][1].equals( table.getNumber())) {
+							x1 = tables.get(table.getName()).getJInternalFrame().getX() + tables.get(table.getName()).getJInternalFrame().getWidth() / 2;
+							y1 = tables.get(table.getName()).getJInternalFrame().getY() + tables.get(table.getName()).getJInternalFrame().getHeight() / 2;
+
+						} else if (listOfEdgesT[i][2].equals( table.getNumber())) {
+							x2 = tables.get(table.getName()).getJInternalFrame().getX() + tables.get(table.getName()).getJInternalFrame().getWidth() / 2;
+							y2 = tables.get(table.getName()).getJInternalFrame().getY() + tables.get(table.getName()).getJInternalFrame().getHeight() / 2;;
+						}
+					}
+
+//			        CubicCurve2D cubcurve = new CubicCurve2D.Float(x1,y1,x1+200,y1-115,x2-200,y2+115,x2,y2);
+//			        g2d.draw(cubcurve);
+					
+			        g2d.drawLine(x1, y1, x2, y2);
+
+					    
+			       // break;
 		        }
+
 
 			}};
 			
@@ -233,16 +253,23 @@ public class DataBase {
 				table.setjDesktopPane(jDesktopPane);
 			}
 
-	    // create panel for each table in the structure
-		for (Map.Entry<String, Table> entry : tables.entrySet()) {
+			// create panel for each table in the structure
+			for (Map.Entry<String, Table> entry : tables.entrySet()) {
 
-			Table table = entry.getValue();
-			
-			table.createJinternalFrameForTable();
-			JInternalFrame currentInternalFrame = table.getJInternalFrame();
-			
-			jDesktopPane.add(currentInternalFrame);
-		}
+				Table table = entry.getValue();
+
+				table.createJinternalFrameForTable();
+				JInternalFrame currentInternalFrame = table.getJInternalFrame();
+				currentInternalFrame.addComponentListener(new ComponentAdapter() {
+
+					@Override
+					public void componentMoved(ComponentEvent e) {
+						jDesktopPane.repaint();// jInternalFrame.repaint();
+					}
+				});
+				jDesktopPane.add(currentInternalFrame);
+
+			}
 		
 		jDesktopPane.setPreferredSize(new Dimension(740, 740));
 		//jDesktopPane.disable();

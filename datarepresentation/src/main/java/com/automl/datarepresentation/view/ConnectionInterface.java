@@ -147,7 +147,9 @@ public class ConnectionInterface extends JFrame {
 						
 		} catch (Exception e) {
 			
+			System.err.println(e);
 			JOptionPane.showMessageDialog(this, e.getMessage());
+			
  		}
     }                                        
     
