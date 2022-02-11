@@ -6,24 +6,21 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Polygon;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.CubicCurve2D;
 import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.print.attribute.standard.NumberUp;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
+import com.automl.datarepresentation.externalFunctions.DrawLineWithArrow;
+import com.automl.datarepresentation.externalFunctions.GraphBuilderPositions;
 import com.automl.visualizationTest.GraphPanel2;
 
 public class DataBase {
@@ -182,7 +179,7 @@ public class DataBase {
 				}
 				
 			// build the graph 
- 		        GraphPanel2 g = new GraphPanel2(listOfEdgesT, tables.size());
+ 		        GraphBuilderPositions g = new GraphBuilderPositions(listOfEdgesT, tables.size());
 		        ArrayList<Point2D> locationsOfTables = g.getListLocationOfTables();
 		        
 		        // TODO : we can impove the processus by using the name isntead the number to get the table
@@ -195,18 +192,8 @@ public class DataBase {
 		        		}
 		        	}
 		        }
-		        
-		      // Set the list of edgeLocation
-		        ArrayList<ArrayList<Point2D>> locationOfEdges = new ArrayList<ArrayList<Point2D>>();
-				for (int i = 0; i < listOfEdgesT.length; i++) {
-					ArrayList<Point2D> locationOfEdge = new ArrayList<Point2D> ();
-					locationOfEdge.add(locationsOfTables.get((int)listOfEdgesT[i][1]));
-					locationOfEdge.add(locationsOfTables.get((int)listOfEdgesT[i][2]));
-					
-					locationOfEdges.add(locationOfEdge);
-				}
-				
-
+ 
+		@SuppressWarnings("serial")
 		JDesktopPane jDesktopPane = new JDesktopPane() {
 
 			@Override
@@ -220,7 +207,7 @@ public class DataBase {
 				g2d.setStroke(s);
 				
 				int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
-				Point2D locationStart = null;
+
 				Point2D locationEnd = null;
 				for (int i = 0; i < listOfEdgesT.length; i++) {
 
@@ -230,34 +217,19 @@ public class DataBase {
 						if ( listOfEdgesT[i][1].equals( table.getNumber())) {
 							x1 = tables.get(table.getName()).getJInternalFrame().getX()  + tables.get(table.getName()).getJInternalFrame().getWidth() / 2;
 							y1 = tables.get(table.getName()).getJInternalFrame().getY()  + tables.get(table.getName()).getJInternalFrame().getHeight() / 2;
-							locationStart = tables.get(table.getName()).getJInternalFrame().getLocation();
+
 						} else if (listOfEdgesT[i][2].equals( table.getNumber())) {
 							x2 = tables.get(table.getName()).getJInternalFrame().getX() + tables.get(table.getName()).getJInternalFrame().getWidth()/2 ;
 							y2 = tables.get(table.getName()).getJInternalFrame().getY()  + tables.get(table.getName()).getJInternalFrame().getHeight() ;
-							locationEnd = new Point  (x2, y2);
+							locationEnd = new Point(x2, y2);
 						}
 					}
 
-//			        CubicCurve2D cubcurve = new CubicCurve2D.Float(x1,y1,x1+200,y1-115,x2-200,y2+115,x2,y2);
-//			        g2d.draw(cubcurve);
-	 
-				    draw(g2d, x1, y1,locationEnd , s, s, 20);
-			       // g2d.drawLine(x1, y1, x2, y2);
-			        
- 
-			       // break;
+				    DrawLineWithArrow.draw(g2d, x1, y1,locationEnd , s, s, 20);
 		        }
 
-
 			}};
-			
-			// TODO : to improve 
-			for (Map.Entry<String, Table> entry : tables.entrySet()) {
-				
-				Table table = entry.getValue();
-				table.setjDesktopPane(jDesktopPane);
-			}
-
+ 
 			// create panel for each table in the structure
 			for (Map.Entry<String, Table> entry : tables.entrySet()) {
 
@@ -269,7 +241,7 @@ public class DataBase {
 
 					@Override
 					public void componentMoved(ComponentEvent e) {
-						jDesktopPane.repaint();// jInternalFrame.repaint();
+						jDesktopPane.repaint(); 
 					}
 				});
 				jDesktopPane.add(currentInternalFrame);
@@ -277,43 +249,10 @@ public class DataBase {
 			}
 		
 		jDesktopPane.setPreferredSize(new Dimension(740, 740));
-		//jDesktopPane.disable();
+ 
 		return jDesktopPane;
 	}
-	
-	
-	public static void draw (final Graphics2D gfx,  double startx, double starty, Point2D end, final Stroke lineStroke, final Stroke arrowStroke, final float arrowSize) {
-		//https://gist.github.com/raydac/df97493f58b0521fb20a 
-	    gfx.setStroke(arrowStroke);
-	    final double deltax = startx - end.getX();
-	    final double result;
-	    if (deltax == 0.0d) {
-	      result = Math.PI / 2;
-	    }
-	    else {
-	      result = Math.atan((starty - end.getY()) / deltax) + (startx < end.getX() ? Math.PI : 0);
-	    }
-
-	    final double angle = result;
-
-	    final double arrowAngle = Math.PI / 12.0d;
-
-	    final double x1 = arrowSize * Math.cos(angle - arrowAngle);
-	    final double y1 = arrowSize * Math.sin(angle - arrowAngle);
-	    final double x2 = arrowSize * Math.cos(angle + arrowAngle);
-	    final double y2 = arrowSize * Math.sin(angle + arrowAngle);
-
-	    final double cx = (arrowSize / 2.0f) * Math.cos(angle);
-	    final double cy = (arrowSize / 2.0f) * Math.sin(angle);
-
-	    final GeneralPath polygon = new GeneralPath();
-	    polygon.moveTo(end.getX(), end.getY());
-	    polygon.lineTo(end.getX() + x1, end.getY() + y1);
-	    polygon.lineTo(end.getX() + x2, end.getY() + y2);
-	    polygon.closePath();
-	    gfx.fill(polygon);
-
-	    gfx.setStroke(lineStroke);
-	    gfx.drawLine((int) startx, (int) starty, (int) (end.getX() + cx), (int) (end.getY() + cy));
-	  }
 }
+	
+	
+

@@ -1,19 +1,14 @@
 package com.automl.datarepresentation.bean;
 
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.geom.Point2D;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.swing.GroupLayout.ParallelGroup;
+import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.GroupLayout.ParallelGroup;
-import javax.swing.GroupLayout.SequentialGroup;
-import javax.swing.JDesktopPane;
-
-import com.automl.visualizationTest.JDPTest2;
 
 public class Table {
 	
@@ -29,32 +24,11 @@ public class Table {
 	private int number;
 	private Point2D location;
 	
-	// just for updating paint
-	private JDesktopPane jDesktopPane;
-	
 	// The constructor
 	public Table(String name) {
 		super();
 		this.name = name;
 	}
-
-	/**
-	 * @return the jDesktopPane
-	 */
-	public JDesktopPane getjDesktopPane() {
-		return jDesktopPane;
-	}
-
-
-
-	/**
-	 * @param jDesktopPane the jDesktopPane to set
-	 */
-	public void setjDesktopPane(JDesktopPane jDesktopPane) {
-		this.jDesktopPane = jDesktopPane;
-	}
-
-
 
 	/**
 	 * @return the number
@@ -265,13 +239,11 @@ public class Table {
         
         jInternalFrame.add(panel);
 		jInternalFrame.setTitle(number+ " - " + name);
-		//jInternalFrame.setSize(160, 50*columns.size());
-		
+ 		
 		jInternalFrame.setLocation((int)location.getX(), (int)location.getY());
 		jInternalFrame.setResizable(true);
 		jInternalFrame.pack();
         jInternalFrame.setVisible(true);
-
-
+ 
     }
 }
