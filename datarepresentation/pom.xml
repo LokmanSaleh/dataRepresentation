@@ -84,7 +84,19 @@
 	    <version>3.9.6</version>
 	</dependency>
 
-	
+	<!-- https://www.geeksforgeeks.org/writing-a-csv-file-in-java-using-opencsv/#:~:text=Writing%20a%20CSV%20file%20is,()%20method%20of%20CSVWriter%20class.-->
+	<dependency>
+		<groupId>com.opencsv</groupId>
+		<artifactId>opencsv</artifactId>
+		<version>4.1</version>
+	</dependency>
+ 
+	 <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	    <version>3.12.0</version>
+	</dependency>
 
 <!-- https://mvnrepository.com/artifact/net.sf.jung/jung-graph-impl -->
 <!-- <dependency> -->
