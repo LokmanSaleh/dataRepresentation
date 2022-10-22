@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.swing.JButton;
-
 public class SQLrequest {
 	
 	private Connection con;
@@ -69,6 +67,9 @@ public class SQLrequest {
 			"		TABLE_SCHEMA = ? ";
 
 
+	public static String INSERT_CHAINE = " INSERT INTO chaines (chaine) \r\n " + 
+										 " VALUES (?)";
+			
 // Functions call data base 
 	/**
 	 * 
@@ -87,6 +88,25 @@ public class SQLrequest {
 		return stmt.executeQuery();
 	}
 
+	/**
+	 * Insert the chaine
+	 * @param chaine
+	 */
+	public void insertChaine(String chaine) {
+
+		PreparedStatement preparedStatement;
+		try {
+
+			preparedStatement = con.prepareStatement(INSERT_CHAINE);
+			preparedStatement.setString(1, chaine);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+	}
 	
 	/**
 	 * 

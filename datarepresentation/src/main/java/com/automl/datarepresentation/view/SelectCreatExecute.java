@@ -1,40 +1,46 @@
 package com.automl.datarepresentation.view;
 
+import java.awt.Desktop;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class SelectCreatExecute extends JFrame {
 
 	private JPanel contentPane;
+	private JButton jButtonSave;
 
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					SelectCreatExecute frame = new SelectCreatExecute();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SelectCreatExecute frame = new SelectCreatExecute();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
 	 */
 	public SelectCreatExecute() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 129, 300);
+		setBounds(100, 100, 295, 301);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -46,23 +52,54 @@ public class SelectCreatExecute extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(10, 26, 99, 37);
+		btnNewButton.setBounds(10, 10, 99, 37);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Create");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				try {
+
+					if (Desktop.isDesktopSupported()) {
+						Desktop.getDesktop().open(new File("C:\\Users\\lookm\\git\\dataRepresentation\\datarepresentation\\src\\main\\java\\com\\automl\\datarepresentation\\view\\bpmn\\process.bpmn"));
+					}
+
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
+		
 		btnNewButton_1.setBounds(10, 73, 99, 37);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Execute");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				
+				
 			}
 		});
-		btnNewButton_2.setBounds(10, 120, 99, 37);
+		btnNewButton_2.setBounds(10, 133, 99, 37);
 		contentPane.add(btnNewButton_2);
+		
+		jButtonSave= new JButton("Save");		
+		jButtonSave.setBounds(128, 73, 99, 37);
+		contentPane.add(jButtonSave);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(0, 65, 281, 14);
+		contentPane.add(separator);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(0, 120, 281, 14);
+		contentPane.add(separator_1);
 	}
+
+	public JButton getjButtonSave() {
+		return jButtonSave;
+	}	
 }

@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -286,8 +287,9 @@ public class DataSchemaService {
 					f.setSize(300, 400);
 					f.setVisible(true);
 					
-					//
+					// the GUI of the three button, Create, save and execute 
 					SelectCreatExecute selectCreatExecuteJframe = new SelectCreatExecute();
+					actionListenerJbuttonSave(selectCreatExecuteJframe.getjButtonSave());
 					selectCreatExecuteJframe.setSize(300, 400);
 					selectCreatExecuteJframe.setVisible(true);
 					
@@ -296,12 +298,23 @@ public class DataSchemaService {
 				}
 
 			}
-			
-		    private String resolvePythonScriptPath(String filename) {
+
+		    /**
+		     * 
+		     * @param filename
+		     * @return
+		     */
+			private String resolvePythonScriptPath(String filename) {
 		        File file = new File(filename);
 		        return file.getAbsolutePath();
 		    }
 		    
+			/**
+			 * 
+			 * @param inputStream
+			 * @return
+			 * @throws IOException
+			 */
 		    private List<String> readProcessOutput(InputStream inputStream) throws IOException {
 		        try (BufferedReader output = new BufferedReader(new InputStreamReader(inputStream))) {
 		            return output.lines()
@@ -370,13 +383,7 @@ public class DataSchemaService {
 					}
 				}
 				validation.put("Missing Informations", missingInfo);
-				
-				
-				
-				
-				
-				
-				
+
 				
 				//Missing values 
 //				Map<String, Integer> missingInfo = new HashedMap<>();
@@ -515,5 +522,45 @@ public class DataSchemaService {
 
 		});
 	}
+	
+	
+	/**
+	 * 
+	 * @param getjButtonSave
+	 */
+	private void actionListenerJbuttonSave(JButton getjButtonSave) {
+
+		getjButtonSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+
+					BufferedReader br = new BufferedReader(new FileReader(
+							"C:\\Users\\lookm\\git\\BPMNTest\\testProject\\src\\main\\resources\\com\\sample\\process.bpmn"));
+					StringBuilder sb = new StringBuilder();
+					String line;
+
+					line = br.readLine();
+
+					while (line != null) {
+						sb.append(line);
+						sb.append(System.lineSeparator());
+						line = br.readLine();
+					}
+
+					String everything = sb.toString();
+					sqLrequest.insertChaine(everything);
+
+					br.close();
+
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+
+	}
+    
 
 }
