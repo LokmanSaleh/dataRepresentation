@@ -17,7 +17,8 @@ public class SelectCreatExecute extends JFrame {
 
 	private JPanel contentPane;
 	private JButton jButtonSave;
-
+	private JButton jButtonExecute;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -62,7 +63,7 @@ public class SelectCreatExecute extends JFrame {
 				try {
 
 					if (Desktop.isDesktopSupported()) {
-						Desktop.getDesktop().open(new File("C:\\Users\\lookm\\git\\dataRepresentation\\datarepresentation\\src\\main\\java\\com\\automl\\datarepresentation\\view\\bpmn\\process.bpmn"));
+						Desktop.getDesktop().open(new File("C:\\Users\\ACER\\git\\dataRepresentation\\datarepresentation\\src\\main\\resources\\com\\bpmn\\sample.bpmn2"));
 					}
 
 				} catch (IOException e1) {
@@ -75,16 +76,9 @@ public class SelectCreatExecute extends JFrame {
 		btnNewButton_1.setBounds(10, 73, 99, 37);
 		contentPane.add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("Execute");
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				
-			}
-		});
-		btnNewButton_2.setBounds(10, 133, 99, 37);
-		contentPane.add(btnNewButton_2);
+		jButtonExecute = new JButton("Execute");
+		jButtonExecute.setBounds(10, 133, 99, 37);
+		contentPane.add(jButtonExecute);
 		
 		jButtonSave= new JButton("Save");		
 		jButtonSave.setBounds(128, 73, 99, 37);
@@ -101,5 +95,10 @@ public class SelectCreatExecute extends JFrame {
 
 	public JButton getjButtonSave() {
 		return jButtonSave;
-	}	
+	}
+
+	public JButton getjButtonExecute() {
+		return jButtonExecute;
+	}
+	
 }

@@ -1,5 +1,8 @@
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -36,14 +39,15 @@ public class NodeNames {
 
 		ProcessInstance processInstance = ksession.startProcess("com.bpmn.process");
 		
+		List<String> lastNode = new ArrayList<String>();
+
         for (LogEvent event : inMemoryLogger.getLogEvents()) {
             if (event instanceof RuleFlowNodeLogEvent) {
                 String nodeName = ((RuleFlowNodeLogEvent) event).getNodeName();
-                System.out.println(nodeName);
-//                if (names.contains(nodeName)) {
-//                    names.remove(nodeName);
-                   
-//                }
+ 				if (!lastNode.contains(nodeName) && lastNode!=null) {
+					lastNode.add(nodeName);
+					System.out.println(nodeName);
+				}
             }
         }
         
