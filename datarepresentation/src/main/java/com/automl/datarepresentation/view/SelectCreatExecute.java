@@ -51,6 +51,7 @@ public class SelectCreatExecute extends JFrame {
 		JButton btnNewButton = new JButton("Select");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				new SelectionCriteria();
 			}
 		});
 		btnNewButton.setBounds(10, 10, 99, 37);
