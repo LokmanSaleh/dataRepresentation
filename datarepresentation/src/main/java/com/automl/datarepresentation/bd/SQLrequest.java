@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+
+import com.automl.datarepresentation.bean.ComboItem;
 
 public class SQLrequest {
 	
@@ -21,7 +24,7 @@ public class SQLrequest {
 	 * requests 
 	 */
 
-	public static String GET_RELATIONAL_DB_STUCTURE = 	
+	public static String GET_RELATIONAL_DB_STUCTURE_SQL = 	
 			"	\r\n" + 
 			"	SELECT \r\n" + 
 			"		TABLE_NAME as tableName,\r\n" + 
@@ -67,8 +70,11 @@ public class SQLrequest {
 			"		TABLE_SCHEMA = ? ";
 
 
-	public static String INSERT_CHAINE = " INSERT INTO chaines (chaine) \r\n " + 
+	public static String INSERT_CHAINE_SQL = " INSERT INTO chaines (chaine) \r\n " + 
 										 " VALUES (?)";
+	
+	public static String GET_CHAINES_SQL = " SELECT * FROM chaines";
+	
 			
 // Functions call data base 
 	/**
@@ -78,7 +84,7 @@ public class SQLrequest {
 	 */
 	public ResultSet getRelationalDbStucture() throws SQLException {
 
-		PreparedStatement stmt = con.prepareStatement(GET_RELATIONAL_DB_STUCTURE);
+		PreparedStatement stmt = con.prepareStatement(GET_RELATIONAL_DB_STUCTURE_SQL);
 
 		stmt.setString(1, dataBaseName);
 		stmt.setString(2, dataBaseName);
@@ -88,6 +94,21 @@ public class SQLrequest {
 		return stmt.executeQuery();
 	}
 
+	
+	/**
+	 * Get the list of chaines 
+	 * @return
+	 * @throws SQLException 
+	 */
+	public ResultSet getChaines() throws SQLException { 
+		
+		PreparedStatement stmt = con.prepareStatement(GET_CHAINES_SQL);
+ 
+		return stmt.executeQuery();
+	}
+
+	
+	
 	/**
 	 * Insert the chaine
 	 * @param chaine
@@ -97,7 +118,7 @@ public class SQLrequest {
 		PreparedStatement preparedStatement;
 		try {
 
-			preparedStatement = con.prepareStatement(INSERT_CHAINE);
+			preparedStatement = con.prepareStatement(INSERT_CHAINE_SQL);
 			preparedStatement.setString(1, chaine);
 			preparedStatement.executeUpdate();
 
@@ -120,7 +141,7 @@ public class SQLrequest {
 
 		return stmt.executeQuery(request);
 	}
-	
+
 	/**
 	 * 
 	 * @throws SQLException

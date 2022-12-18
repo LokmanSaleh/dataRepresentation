@@ -13,6 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.border.EmptyBorder;
 
+import com.automl.datarepresentation.bean.ComboItem;
+import com.automl.datarepresentation.bean.StaticPaths; 
+
+import javax.swing.JComboBox; 
+
 public class SelectCreatExecute extends JFrame {
 
 	private JPanel contentPane;
@@ -41,7 +46,7 @@ public class SelectCreatExecute extends JFrame {
 	public SelectCreatExecute() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 295, 301);
+		setBounds(100, 100, 287, 318);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -64,7 +69,7 @@ public class SelectCreatExecute extends JFrame {
 				try {
 
 					if (Desktop.isDesktopSupported()) {
-						Desktop.getDesktop().open(new File("C:\\Users\\ACER\\git\\dataRepresentation\\datarepresentation\\src\\main\\resources\\com\\bpmn\\sample.bpmn2"));
+						Desktop.getDesktop().open(new File(StaticPaths.PATH_OF_BPMN_FILE));
 					}
 
 				} catch (IOException e1) {
@@ -78,7 +83,7 @@ public class SelectCreatExecute extends JFrame {
 		contentPane.add(btnNewButton_1);
 		
 		jButtonExecute = new JButton("Execute");
-		jButtonExecute.setBounds(10, 133, 99, 37);
+		jButtonExecute.setBounds(64, 222, 99, 37);
 		contentPane.add(jButtonExecute);
 		
 		jButtonSave= new JButton("Save");		
@@ -92,6 +97,16 @@ public class SelectCreatExecute extends JFrame {
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(0, 120, 281, 14);
 		contentPane.add(separator_1);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(10, 129, 171, 37);
+		
+		comboBox.addItem(new ComboItem("Visible String 1", "Value 1"));
+		comboBox.addItem(new ComboItem("Visible String 2", "Value 2"));
+		comboBox.addItem(new ComboItem("Visible String 3", "Value 3"));
+		
+		contentPane.add(comboBox);
+		
 	}
 
 	public JButton getjButtonSave() {
@@ -101,5 +116,4 @@ public class SelectCreatExecute extends JFrame {
 	public JButton getjButtonExecute() {
 		return jButtonExecute;
 	}
-	
 }
