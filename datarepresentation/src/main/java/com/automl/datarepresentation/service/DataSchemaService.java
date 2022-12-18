@@ -280,16 +280,21 @@ public class DataSchemaService {
 			
 			/**
 			 * Get the chaines from data base and transfer the BPMN file into String chaine. 
+			 * @throws SQLException 
 			 */
-			public getChaines() {
+			public List<ComboItem> getChaines() throws SQLException {
 				
-				List<ComboItem> comboItems = List<ComboItem>;
+				List<ComboItem> comboItems = new ArrayList<ComboItem>();
+				ComboItem comboItem;
 				
 				ResultSet rs = sqLrequest.getChaines();
 				
 				while (rs.next()) {
-					comboItems
+					
+					comboItem = new ComboItem(null, rs.getString("chaine"));
 				}
+				
+				return comboItems;
 			}
 			
 			/**
