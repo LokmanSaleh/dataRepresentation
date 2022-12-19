@@ -109,7 +109,22 @@
       <artifactId>jbpm-test</artifactId>
       <version>7.0.0.Final</version>
     </dependency>
-    
+    <!-- https://x-stream.github.io -->
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>1.4.10</version>
+                <exclusions>
+                  <exclusion>
+                    <groupId>xpp3</groupId>
+                    <artifactId>xpp3_min</artifactId>
+                  </exclusion>
+                  <exclusion>
+                    <groupId>xmlpull</groupId>
+                    <artifactId>xmlpull</artifactId>
+                  </exclusion>
+                </exclusions>
+            </dependency>
   </dependencies>
   
 <!-- https://mvnrepository.com/artifact/net.sf.jung/jung-graph-impl -->

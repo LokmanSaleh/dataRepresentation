@@ -288,6 +288,7 @@ public class DataSchemaService {
 				ComboItem comboItem;
 				
 				ResultSet rs = sqLrequest.getChaines();
+//				//readThePipelinesFromBPMN
 				
 				while (rs.next()) {
 					
