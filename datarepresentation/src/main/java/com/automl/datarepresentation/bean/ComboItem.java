@@ -1,10 +1,12 @@
 package com.automl.datarepresentation.bean;
 
+import java.util.List;
+
 public class ComboItem {
 	private String key;
-    private String value;
+    private List<String> value;
 
-    public ComboItem(String key, String value)
+    public ComboItem(String key, List<String> value)
     {
         this.key = key;
         this.value = value;
@@ -21,7 +23,7 @@ public class ComboItem {
         return key;
     }
 
-    public String getValue()
+    public List<String> getValue()
     {
         return value;
     }

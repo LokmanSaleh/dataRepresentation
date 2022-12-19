@@ -13,7 +13,7 @@ public class StaticPaths {
 	//public static final String PATH_PYTHON_EXEC = "C:\\Program Files\\Python3\\python"; 
 	
 	//New PC
-	public static final String PATH_PYTHON_EXEC = "C:\\Users\\lookm\\AppData\\Local\\Programs\\Python\\Python310";
+	public static final String PATH_PYTHON_EXEC = "C:\\Users\\lookm\\AppData\\Local\\Programs\\Python\\Python310\\python";
 			
 	public static final String PATH_PYTHON_PIPELINE_IMP =  PATH_OF_PROJET + "pythonPipeline\\test\\moduleTest\\dataTreatment.py";
 	

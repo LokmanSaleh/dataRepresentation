@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,9 +21,10 @@ import javax.swing.JComboBox;
 
 public class SelectCreatExecute extends JFrame {
 
-	private JPanel contentPane;
+	private JPanel jContentPane;
 	private JButton jButtonSave;
 	private JButton jButtonExecute;
+	private JComboBox jComboBox;
 	
 	/**
 	 * Launch the application.
@@ -31,8 +33,8 @@ public class SelectCreatExecute extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SelectCreatExecute frame = new SelectCreatExecute();
-					frame.setVisible(true);
+//					SelectCreatExecute frame = new SelectCreatExecute();
+//					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -43,15 +45,15 @@ public class SelectCreatExecute extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SelectCreatExecute() {
+	public SelectCreatExecute(List<List<String>> ListOfChaines) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 287, 318);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		jContentPane = new JPanel();
+		jContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setContentPane(jContentPane);
+		jContentPane.setLayout(null);
 		
 		JButton btnNewButton = new JButton("Select");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -60,7 +62,7 @@ public class SelectCreatExecute extends JFrame {
 			}
 		});
 		btnNewButton.setBounds(10, 10, 99, 37);
-		contentPane.add(btnNewButton);
+		jContentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Create");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -80,32 +82,31 @@ public class SelectCreatExecute extends JFrame {
 		});
 		
 		btnNewButton_1.setBounds(10, 73, 99, 37);
-		contentPane.add(btnNewButton_1);
+		jContentPane.add(btnNewButton_1);
 		
 		jButtonExecute = new JButton("Execute");
 		jButtonExecute.setBounds(64, 222, 99, 37);
-		contentPane.add(jButtonExecute);
+		jContentPane.add(jButtonExecute);
 		
 		jButtonSave= new JButton("Save");		
 		jButtonSave.setBounds(128, 73, 99, 37);
-		contentPane.add(jButtonSave);
+		jContentPane.add(jButtonSave);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 65, 281, 14);
-		contentPane.add(separator);
+		jContentPane.add(separator);
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(0, 120, 281, 14);
-		contentPane.add(separator_1);
+		jContentPane.add(separator_1);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(10, 129, 171, 37);
+		jComboBox = new JComboBox();
+		jComboBox.setBounds(10, 129, 171, 37);
+		for (List<String> chaine : ListOfChaines) {
+			jComboBox.addItem(new ComboItem(chaine.toString(), chaine));
+		} 
 		
-		comboBox.addItem(new ComboItem("Visible String 1", "Value 1"));
-		comboBox.addItem(new ComboItem("Visible String 2", "Value 2"));
-		comboBox.addItem(new ComboItem("Visible String 3", "Value 3"));
-		
-		contentPane.add(comboBox);
+		jContentPane.add(jComboBox);
 		
 	}
 
@@ -115,5 +116,9 @@ public class SelectCreatExecute extends JFrame {
 
 	public JButton getjButtonExecute() {
 		return jButtonExecute;
+	}
+	
+	public JComboBox getJComboBox() {
+		return jComboBox;
 	}
 }
